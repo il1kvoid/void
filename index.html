@@ -3,176 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Advanced Vanilla Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Void+ | Monochrome Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
-            --primary: #a78bfa;
-            --primary-glow: rgba(167, 139, 248, 0.4);
-            --bg-dark: #020205;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            /* Строгая Ч/Б палитра */
+            --bg: #000000;
+            --text: #ffffff;
+            --card-bg: #111111;
+            --border: #222222;
+            --border-hover: #ffffff; /* Акцент - белый */
+            --gray-text: #888888;
+            --gray-sub: #444444;
         }
 
+        * { box-sizing: border-box; scroll-behavior: smooth; }
         body {
-            margin: 0; background-color: var(--bg-dark);
-            color: #fff; font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
+            margin: 0; background: var(--bg); color: var(--text);
+            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
         }
 
-        /* --- Анимированный фон --- */
+        /* --- BACKGROUND LAYERS --- */
         #particles-js {
             position: fixed; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at center, #0a0a1a 0%, #020205 100%);
+            background: linear-gradient(180deg, #000 0%, #111 100%);
+        }
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none; z-index: 0;
         }
 
-        .main-wrapper { position: relative; z-index: 1; }
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #fff; border-radius: 10px; } /* Белый скроллбар */
 
-        /* --- Герой секция --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 0;
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000;
+        }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; font-size: 1.4rem; color: #fff; text-decoration: none;}
+        .nav-logo:hover { animation: flicker 0.2s infinite; } /* Эффект мерцания при наведении */
+        
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { 
+            text-decoration: none; color: rgba(255,255,255,0.6); 
+            font-size: 0.75rem; font-weight: 700; transition: 0.3s;
+        }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; } /* Белое свечение */
+
+        /* --- HERO --- */
         .hero {
             height: 100vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
         }
-
         .hero h1 {
-            font-family: 'Orbitron', sans-serif; font-size: clamp(3rem, 15vw, 8rem);
-            margin: 0; background: linear-gradient(to bottom, #fff, #444);
+            font-family: 'Orbitron'; font-size: clamp(4rem, 18vw, 10rem);
+            margin: 0; line-height: 0.9; letter-spacing: -5px;
+            background: linear-gradient(180deg, #fff 0%, #222 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px var(--primary-glow));
+        }
+        .hero-sub { color: #fff; letter-spacing: 15px; text-transform: uppercase; margin: 20px 0 60px; font-weight: 200; text-shadow: 0 0 10px #fff; }
+
+        .ip-module {
+            background: #000; border: 1px solid var(--border);
+            padding: 5px; border-radius: 100px; display: flex; align-items: center;
+            transition: 0.4s; cursor: pointer;
+        }
+        .ip-module:hover { border-color: var(--border-hover); box-shadow: 0 0 30px rgba(255,255,255,0.2); transform: scale(1.02); }
+        .ip-address { padding: 15px 40px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 3px; color: #fff; }
+        .ip-copy-btn { background: #fff; color: #000; padding: 15px 25px; border-radius: 100px; font-weight: 900; }
+
+        /* --- SECTIONS --- */
+        .section-title {
+            font-family: 'Orbitron'; font-size: 1.2rem; letter-spacing: 8px;
+            margin: 120px 0 50px; display: flex; align-items: center; gap: 25px; color: var(--gray-text);
+        }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* NEWS FEED */
+        .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .main-news {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 30px; padding: 50px; position: relative; overflow: hidden; transition: 0.3s;
+        }
+        .main-news:hover { border-color: var(--border-hover); background: #1a1a1a; }
+        .main-news h2 { font-family: 'Orbitron'; font-size: 2.2rem; margin-top: 10px; color: #fff; }
+        .news-tag { background: #fff; color: #000; padding: 5px 15px; border-radius: 5px; font-weight: 800; font-size: 0.7rem; }
+
+        .side-widget {
+            background: #111; border: 1px solid var(--border);
+            border-radius: 30px; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: 0.3s;
+        }
+        .side-widget:hover { border-color: #fff; }
+
+        /* FEATURES INTERACTIVE */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .feat-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 40px; border-radius: 25px; transition: 0.4s; position: relative;
+        }
+        .feat-card:hover { border-color: var(--border-hover); background: #fff; color: #000; transform: translateY(-10px); }
+        .feat-card i { font-size: 2.5rem; color: #fff; margin-bottom: 25px; opacity: 0.8; transition: 0.3s;}
+        .feat-card:hover i { color: #000; opacity: 1; }
+        .feat-card h3 { font-family: 'Orbitron'; margin: 0 0 15px; font-size: 1.3rem; }
+        .feat-card p { color: var(--gray-text); line-height: 1.7; font-size: 0.95rem; transition: 0.3s;}
+        .feat-card:hover p { color: #333; }
+
+        /* GALLERY SLOTS */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .img-slot { 
+            height: 250px; background: #111; border-radius: 15px; 
+            border: 1px solid var(--border); display: flex; align-items: center;
+            justify-content: center; color: #333; font-weight: 800; overflow: hidden;
+            transition: 0.5s;
+        }
+        .img-slot:hover { transform: scale(0.98); border-color: var(--border-hover); color: #888; }
+
+        footer { padding: 100px 0 50px; text-align: center; border-top: 1px solid var(--border); margin-top: 100px; opacity: 0.4; font-size: 0.8rem; color: var(--gray-sub); }
+
+        /* АНИМАЦИИ */
+        @keyframes flicker {
+            0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; }
         }
 
-        .hero p {
-            font-size: 1.2rem; letter-spacing: 10px; color: var(--primary);
-            text-transform: uppercase; margin-bottom: 50px;
+        @media (max-width: 1000px) {
+            .news-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
         }
-
-        /* Кнопка IP из вашего последнего билда */
-        .ip-btn {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-            padding: 15px 40px; border-radius: 50px; cursor: pointer;
-            font-family: 'Orbitron', sans-serif; letter-spacing: 3px;
-            display: flex; align-items: center; gap: 15px;
-            transition: 0.3s; backdrop-filter: blur(10px);
-        }
-        .ip-btn:hover { border-color: var(--primary); box-shadow: 0 0 30px var(--primary-glow); }
-
-        /* --- Секция статистики --- */
-        .stats-bar {
-            display: flex; gap: 50px; margin-top: 50px;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .stat-item span { display: block; color: var(--primary); font-size: 1.5rem; font-weight: 900; }
-
-        /* --- Секция Features --- */
-        .section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        .feature-card {
-            background: var(--glass); border: 1px solid var(--border);
-            padding: 40px; border-radius: 20px; transition: 0.3s;
-        }
-        .feature-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
-        .feature-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
-
-        /* --- Секция Новостей (Лента) --- */
-        .news-strip {
-            background: linear-gradient(90deg, var(--glass), transparent);
-            border-left: 4px solid var(--primary); padding: 40px; border-radius: 0 20px 20px 0;
-            margin-bottom: 50px;
-        }
-
-        /* --- Футер --- */
-        footer { text-align: center; padding: 50px; opacity: 0.3; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <div id="particles-js"></div>
+<div class="vignette"></div>
 
-<div class="main-wrapper">
-    <section class="hero" data-aos="fade-up">
+<nav>
+    <div class="container nav-flex">
+        <a href="#" class="nav-logo">VOID+</a>
+        <div class="nav-links">
+            <a href="#about">О ПРОЕКТЕ</a>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank">ЗАЧАРОВАНИЯ</a>
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank">DISCORD</a>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank">TELEGRAM</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <section class="hero" data-aos="zoom-out">
         <h1>VOID+</h1>
-        <p>Premium SMP Experience</p>
+        <div class="hero-sub">Pure Monochromatic Vanilla+</div>
         
-        <div class="ip-btn" onclick="copyIP()">
-            <i class="fas fa-terminal"></i>
-            <span>PLAY.VOIDPLUS.ME</span>
+        <div class="ip-module" onclick="copyIP()">
+            <div class="ip-address">PLAY.VOIDPLUS.ME</div>
+            <div class="ip-copy-btn">COPY</div>
         </div>
-
-        <div class="stats-bar">
-            <div class="stat-item"><span>24/7</span> Uptime</div>
-            <div class="stat-item"><span>50+</span> Enchants</div>
-            <div class="stat-item"><span>100%</span> Vanilla+</div>
-        </div>
-    </section>
-
-    <section class="section" data-aos="fade-right">
-        <h2 style="font-family: 'Orbitron'; letter-spacing: 5px; margin-bottom: 40px;">LATEST NEWS</h2>
-        <div class="news-strip">
-            <span style="color: var(--primary); font-weight: 700;">UPDATE 2.0</span>
-            <h3>Глобальное обновление магии</h3>
-            <p>Мы внедрили уникальную систему зачарований и вернули Plasmo Voice. Теперь мир ощущается по-новому. Исследуй данжи, чтобы найти редчайшие свитки!</p>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" style="color: #fff; font-weight: 700;">Список чар →</a>
+        
+        <div style="margin-top: 40px; display: flex; gap: 30px; font-family: 'Orbitron'; font-size: 0.8rem; color: var(--gray-sub);">
+            <span><i class="fas fa-signal" style="color:#fff"></i> 24/7 ONLINE</span>
+            <span><i class="fas fa-users" style="color:#fff"></i> GROWING COMMUNITY</span>
         </div>
     </section>
 
-    <section class="section" data-aos="fade-up">
-        <h2 style="font-family: 'Orbitron'; text-align: center; letter-spacing: 5px; margin-bottom: 60px;">WHY VOID+?</h2>
-        <div class="grid">
-            <div class="feature-card">
-                <i class="fas fa-microphone-lines"></i>
-                <h3>Spatial Audio</h3>
-                <p>Полное погружение с Plasmo Voice. Слышьте игроков так, будто они рядом с вами.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-wand-magic-sparkles"></i>
-                <h3>Custom Enchants</h3>
-                <p>Более 50+ новых механик зачарований, которые не ломают баланс, но расширяют геймплей.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-shield-halved"></i>
-                <h3>No Grief</h3>
-                <p>Ваши постройки под надежной защитой системы логирования и адекватной администрации.</p>
-            </div>
-        </div>
-    </section>
+    <div class="section-title" id="about">LATEST NEWS & STATUS</div>
 
-    <section class="section" data-aos="zoom-in">
-        <div style="background: var(--glass); height: 400px; border-radius: 30px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--border);">
-            <p style="color: #444; font-weight: 700; letter-spacing: 3px;">[ PLACE YOUR SHADERS SCREENSHOTS HERE ]</p>
+    <div class="news-grid">
+        <div class="main-news" data-aos="fade-right">
+            <span class="news-tag">MAJOR UPDATE</span>
+            <div style="font-size: 0.7rem; color: var(--gray-sub); margin-top: 15px;">PUBLISHED: 25 APRIL, 2026</div>
+            <h2>Вайп 2.0: Глобальная Магия</h2>
+            <p>
+                Мы открываем новую страницу истории Void+. В этом сезоне фокус сделан на расширении стандартных механик Minecraft. 
+                Мы интегрировали <b>Spatial Voice Chat</b> и систему из <b>50+ кастомных чар</b>, которые сделают ваше выживание по-настоящему уникальным.
+            </p>
+            <p>
+                Зачарования теперь разделены на уровни редкости и могут быть найдены в сокровищницах по всему миру. Готовы ли вы стать сильнейшим в Пустоте?
+            </p>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" style="display:inline-block; margin-top:20px; background:#fff; color:#000; padding:15px 35px; border-radius:10px; text-decoration:none; font-weight:800; font-size:0.8rem;">ИЗУЧИТЬ СПИСОК ЧАР</a>
         </div>
-    </section>
 
-    <footer>&copy; 2026 VOID+ PROJECT. ALL RIGHTS RESERVED.</footer>
+        <div class="side-widget" data-aos="fade-left">
+            <i class="fab fa-discord" style="font-size: 3rem; color: #fff; margin-bottom: 20px;"></i>
+            <h3 style="font-family: 'Orbitron'; color: #fff;">DISCORD HUB</h3>
+            <p style="font-size: 0.85rem; color: var(--gray-text);">Присоединяйся к 500+ игрокам! Ивенты, торговля и поддержка 24/7.</p>
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank" style="width:100%; border:1px solid #fff; color:#fff; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; margin-top:auto;">JOIN SERVER</a>
+        </div>
+    </div>
+
+    <div class="section-title">SERVER FEATURES</div>
+
+    <div class="features-grid">
+        <div class="feat-card" data-aos="fade-up">
+            <i class="fas fa-microphone-lines"></i>
+            <h3>Spatial Audio</h3>
+            <p>Общайтесь голосом прямо в игре! Громкость зависит от расстояния, а направление звука помогает ориентироваться в пространстве.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-hat-wizard"></i>
+            <h3>Legacy Enchants</h3>
+            <p>Забудьте о скучных книгах. Находите редкие манускрипты, которые дают способности к телепортации, защите от магии и мощным атакам.</p>
+        </div>
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-gem"></i>
+            <h3>Pure Vanilla+</h3>
+            <p>Никаких приватов топором или сложной экономики. Только честное выживание, доверие и социальное взаимодействие.</p>
+        </div>
+    </div>
+
+    <div class="section-title">WORLD GALLERY</div>
+    
+    <div class="gallery-grid">
+        <div class="img-slot" data-aos="zoom-in">IMAGE 1 (SHADERS)</div>
+        <div class="img-slot" data-aos="zoom-in" data-aos-delay="100">IMAGE 2 (SPAWN)</div>
+        <div class="img-slot" data-aos="zoom-in" data-aos-delay="200">IMAGE 3 (BUILDS)</div>
+    </div>
+
+    <footer>
+        &copy; 2026 VOID+ SMP • NOT AN OFFICIAL MINECRAFT PRODUCT.
+    </footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-    // Анимация частиц на фоне
+    // Анимации при скролле
+    AOS.init({ duration: 800, once: true });
+
+    // Монохромные частицы
     particlesJS("particles-js", {
         "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#a78bfa" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.2 },
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" }, /* Частицы теперь белые */
+            "opacity": { "value": 0.1 },
             "size": { "value": 3, "random": true },
-            "line_linked": { "enable": true, "distance": 150, "color": "#a78bfa", "opacity": 0.1, "width": 1 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.05, "width": 1 },
             "move": { "enable": true, "speed": 1 }
-        },
-        "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "repulse" } }
         }
     });
 
-    // Инициализация анимации появления
-    AOS.init({ duration: 1000, once: true });
-
+    // Функция копирования
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        alert("IP скопирован! Ждем тебя в Пустоте.");
+        const btn = document.querySelector('.ip-copy-btn');
+        btn.innerText = "COPIED!";
+        btn.style.background = "#444"; /* Немного затемняем кнопку при копировании */
+        btn.style.color = "#fff";
+        setTimeout(() => { 
+            btn.innerText = "COPY"; 
+            btn.style.background = "#fff";
+            btn.style.color = "#000";
+        }, 2000);
     }
 </script>
 
