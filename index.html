@@ -1,287 +1,216 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Advanced Vanilla Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent: #6d28d9; 
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Void+ Client</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background-color: var(--bg);
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0f, #000);
+      color: #fff;
+      overflow-x: hidden;
+    }
 
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #8a2be2;
+    }
 
-        header {
-            text-align: center;
-            padding: 100px 0 40px;
-            animation: fadeInDown 1s ease-out;
-        }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #ccc;
+      transition: 0.3s;
+    }
 
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 10vw, 6rem);
-            margin: 0;
-            letter-spacing: 15px;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff 40%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    nav a:hover {
+      color: #fff;
+    }
 
-        .subtitle {
-            font-size: 0.9rem;
-            letter-spacing: 6px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-top: 10px;
-            font-weight: 600;
-        }
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-        .ip-box {
-            margin-top: 40px;
-            padding: 18px 45px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: 0.4s;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 3px;
-        }
+    .hero h1 {
+      font-size: 64px;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #8a2be2, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .ip-box:hover {
-            background: var(--accent);
-            box-shadow: 0 0 30px rgba(109, 40, 217, 0.4);
-            transform: scale(1.05);
-        }
+    .hero p {
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 18px;
+    }
 
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            width: 100%;
-            margin: 60px 0;
-        }
+    .btn {
+      margin-top: 30px;
+      padding: 15px 40px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(90deg, #8a2be2, #00ffff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            padding: 35px;
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            text-decoration: none;
-            color: white;
-            transition: 0.3s;
-            cursor: pointer;
-        }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(138,43,226,0.7);
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.07);
-            border-color: var(--accent);
-        }
+    .features {
+      padding: 100px 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
 
-        .card.news-card {
-            border: 1px solid rgba(109, 40, 217, 0.3);
-            background: linear-gradient(145deg, rgba(109, 40, 217, 0.1), rgba(0,0,0,0));
-        }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      transition: 0.3s;
+    }
 
-        .card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin: 0 0 10px 0;
-        }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+    }
 
-        .card p {
-            color: #888;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
+    .card h3 {
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
 
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: 0.3s;
-        }
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
 
-        .modal-content {
-            background: #0a0a0a;
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            border-radius: 25px;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-        }
-
-        .modal-content h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            margin-top: 0;
-        }
-
-        .modal-text {
-            line-height: 1.8;
-            color: #ccc;
-            font-size: 1rem;
-        }
-
-        .modal-links {
-            margin-top: 25px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .modal-btn {
-            padding: 10px 20px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px; right: 20px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #555;
-        }
-
-        footer { padding: 40px; opacity: 0.2; text-align: center; font-size: 0.7rem; }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
+<canvas id="bg"></canvas>
 
-<div class="container">
-    <header>
-        <h1>VOID+</h1>
-        <div class="subtitle">Premium Vanilla+ SMP</div>
-        <div class="ip-box" onclick="copyIP()">PLAY.VOIDPLUS.ME</div>
-    </header>
+<header>
+  <div class="logo">Void+</div>
+  <nav>
+    <a href="#">Главная</a>
+    <a href="#features">Функции</a>
+    <a href="#download">Скачать</a>
+  </nav>
+</header>
 
-    <div class="grid">
-        <div class="card news-card" onclick="openModal()">
-            <h3>ЧТО НОВОГО?</h3>
-            <p>Глобальное обновление: 50+ зачарований, смена Voice Chat и планы на Энд...</p>
-            <span style="color: var(--accent); font-size: 0.8rem; font-weight: bold;">ЧИТАТЬ ПОЛНОСТЬЮ →</span>
-        </div>
+<section class="hero">
+  <h1>Void+ Client</h1>
+  <p>Премиальный Minecraft клиент нового поколения</p>
+  <button class="btn">Скачать</button>
+</section>
 
-        <a href="https://t.me/VoidVanilaSMP" class="card" target="_blank">
-            <h3>TELEGRAM</h3>
-            <p>Наш новостной канал. Все анонсы и важные изменения здесь.</p>
-        </a>
+<section class="features" id="features">
+  <div class="card">
+    <h3>🚀 Оптимизация</h3>
+    <p>Максимальный FPS и стабильность</p>
+  </div>
+  <div class="card">
+    <h3>⚡ Быстродействие</h3>
+    <p>Минимальная задержка и плавный геймплей</p>
+  </div>
+  <div class="card">
+    <h3>🎨 UI</h3>
+    <p>Современный и красивый интерфейс</p>
+  </div>
+</section>
 
-        <a href="https://modrinth.com/plugin/plasmo-voice" class="card" target="_blank">
-            <h3>PLASMO VOICE</h3>
-            <p>Мы вернулись на Plasmo! Скачай плагин для лучшего звука на сервере.</p>
-        </a>
+<footer>
+  © 2026 Void+ Client. Все права защищены.
+</footer>
 
-        <a href="https://discord.gg/kafGXsKnBD" class="card" target="_blank">
-            <h3>DISCORD</h3>
-            <p>Живое общение, техподдержка и поиск тимейтов в нашей пустоте.</p>
-        </a>
-    </div>
-
-    <footer>&copy; 2026 VOID+ PROJECT. ALL RIGHTS RESERVED.</footer>
-</div>
-
-<div class="modal-overlay" id="newsModal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2>ОБНОВЛЕНИЕ СЕРВЕРА</h2>
-        <div class="modal-text">
-            <p>Здравствуйте! У нас есть отличные новости насчет нашего любимого сервера.</p>
-            <p>✨ <b>Новые фишки:</b> Мы внедрили систему из <b>50+ уникальных зачарований</b>. Теперь их можно найти во всех обычных данжах, деревнях и руинах. Исследуйте мир — это того стоит!</p>
-            <p>🎙 <b>Голосовой чат:</b> По вашим просьбам мы поменяли <i>Simple Voice Chat</i> обратно на <b>Plasmo Voice</b>. Вас ждут новые функции и более стабильная связь.</p>
-            <p>🔥 <b>Миры:</b> Открытие Ада планируется моментально с первого дня вайпа. А вот <b>Энд...</b> Энд пока останется тайной, которую вам предстоит разгадать позже.</p>
-        </div>
-        <div class="modal-links">
-            <a href="#" class="modal-btn">Enchantment List</a>
-            <a href="https://t.me/VoidVanilaSMP" class="modal-btn" style="background: #222;">Телеграм Канал</a>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#ffffff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.15, "random": true },
-            "size": { "value": 2, "random": true },
-            "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 0.8, "direction": "none", "random": true, "out_mode": "out" }
-        }
-    });
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
 
-    function openModal() {
-        const modal = document.getElementById('newsModal');
-        modal.style.display = 'flex';
-        setTimeout(() => modal.style.opacity = '1', 10);
-    }
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    function closeModal() {
-        const modal = document.getElementById('newsModal');
-        modal.style.opacity = '0';
-        setTimeout(() => modal.style.display = 'none', 300);
-    }
+let particles = [];
 
-    function copyIP() {
-        navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        alert("IP скопирован! Увидимся на Void+");
-    }
+for (let i = 0; i < 120; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2,
+    dx: (Math.random() - 0.5) * 0.5,
+    dy: (Math.random() - 0.5) * 0.5
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.x += p.dx;
+    p.y += p.dy;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#00ffff';
+    ctx.fill();
+
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
