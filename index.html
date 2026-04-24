@@ -1,457 +1,292 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Advanced Vanilla Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --accent: #a78bfa;
-            --accent-glow: #6d28d9;
-            --bg-dark: #000000;
-            --bg-void: #050509;
-            --glass: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.06);
-            --text-main: #e2e8f0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        /* --- АНИМИРОВАННЫЙ ФОН ПУСТОТЫ --- */
-        .void-background {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(76, 29, 149, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(109, 40, 217, 0.1) 0%, transparent 40%),
-                linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-void) 100%);
-            animation: voidPanic 20s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
-        }
+body{
+ font-family:Inter;
+ background:#000;
+ color:#fff;
+ overflow-x:hidden;
+}
 
-        @keyframes voidPanic {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1) rotate(1deg); }
-        }
+/* smooth scroll */
+html{scroll-behavior:smooth}
 
-        /* Фоновые узоры (глифы) */
-        .bg-glyphs {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.02;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
-        }
+/* header */
+header{
+ position:fixed;
+ top:0;width:100%;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:20px 60px;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(14px);
+ border-bottom:1px solid rgba(255,255,255,0.05);
+ z-index:1000;
+}
 
-        /* --- НАВИГАЦИЯ --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 25px 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-        }
+.logo{
+ font-weight:700;
+ letter-spacing:4px;
+}
 
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-        }
+nav a{
+ margin-left:30px;
+ color:#888;
+ text-decoration:none;
+ position:relative;
+}
 
-        .nav-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-        }
+nav a::after{
+ content:"";
+ position:absolute;
+ bottom:-5px;left:0;
+ width:0;height:1px;
+ background:#fff;
+ transition:.3s;
+}
 
-        .nav-logo span { color: var(--accent); animation: colorPulse 4s infinite; }
+nav a:hover{color:#fff}
+nav a:hover::after{width:100%}
 
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            position: relative;
-        }
+/* hero */
+.hero{
+ height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ position:relative;
+}
 
-        .nav-links a:hover { color: #fff; }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -5px; left: 0;
-            background: var(--accent);
-            transition: 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
+.hero h1{
+ font-size:110px;
+ letter-spacing:15px;
+ font-weight:700;
+ opacity:0;
+ transform:translateY(30px);
+ animation:fadeUp 1s ease forwards;
+}
 
-        /* --- ГЛАВНАЯ КОНТЕЙНЕР --- */
-        .main-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 160px 20px 80px;
-            position: relative;
-        }
+.hero p{
+ margin-top:20px;
+ color:#777;
+ opacity:0;
+ animation:fadeUp 1s .3s forwards;
+}
 
-        /* --- HERO SECTION --- */
-        .hero {
-            text-align: center;
-            padding: 80px 0;
-            position: relative;
-        }
+.btn{
+ margin-top:40px;
+ padding:14px 35px;
+ border:1px solid #fff;
+ background:transparent;
+ color:#fff;
+ cursor:pointer;
+ transition:.3s;
+ opacity:0;
+ animation:fadeUp 1s .6s forwards;
+}
 
-        .hero-title-wrap { position: relative; display: inline-block; }
-        
-        .logo-main {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(4rem, 15vw, 9rem);
-            font-weight: 900;
-            letter-spacing: 25px;
-            margin: 0;
-            background: linear-gradient(180deg, #fff 30%, #555 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 40px rgba(167, 139, 248, 0.4));
-        }
+.btn:hover{
+ background:#fff;color:#000;
+ transform:translateY(-3px);
+ box-shadow:0 10px 30px rgba(255,255,255,0.2);
+}
 
-        .logo-sub {
-            font-size: 1.1rem;
-            color: var(--accent);
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-top: -10px;
-        }
+/* sections */
+.section{
+ padding:140px 60px;
+ max-width:1200px;
+ margin:auto;
+}
 
-        /* УЛЬТРА-КНОПКА IP */
-        .ip-container {
-            margin-top: 70px;
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.title{
+ font-size:32px;
+ margin-bottom:50px;
+ font-weight:600;
+}
 
-        .ip-container:hover { transform: translateY(-5px); }
+/* news */
+.news-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+ gap:30px;
+}
 
-        .ip-neon-border {
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, var(--accent), #fff, var(--accent-glow), #fff);
-            background-size: 400%;
-            border-radius: 15px;
-            z-index: -1;
-            filter: blur(10px);
-            animation: neonGlow 8s linear infinite;
-            opacity: 0.7;
-        }
+.news-card{
+ padding:30px;
+ border:1px solid rgba(255,255,255,0.08);
+ background:rgba(255,255,255,0.02);
+ transition:.4s;
+ cursor:pointer;
+ position:relative;
+ overflow:hidden;
+}
 
-        .ip-box {
-            background: #000;
-            padding: 22px 50px;
-            border-radius: 13px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            letter-spacing: 5px;
-            font-weight: 700;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; gap: 20px;
-        }
+.news-card::before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(120deg,transparent,rgba(255,255,255,0.1),transparent);
+ opacity:0;
+ transition:.4s;
+}
 
-        /* --- СЕКЦИИ --- */
-        .section-header {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: #444;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin: 100px 0 40px;
-            display: flex; align-items: center; gap: 20px;
-        }
-        .section-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.news-card:hover::before{opacity:1}
 
-        /* --- ПОЛОСА НОВОСТЕЙ (ЛЕНТА) --- */
-        .news-strip {
-            background: linear-gradient(135deg, rgba(20,20,30,0.4) 0%, rgba(0,0,0,0.6) 100%);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 50px;
-            position: relative;
-            backdrop-filter: blur(10px);
-            display: flex; gap: 40px; align-items: flex-start;
-            transition: 0.4s;
-        }
+.news-card:hover{
+ transform:translateY(-8px);
+ border:1px solid rgba(255,255,255,0.2);
+}
 
-        .news-strip:hover {
-            border-color: rgba(167, 139, 248, 0.3);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        }
+.news-card h3{margin-bottom:10px}
+.news-card p{color:#888}
 
-        .news-visual {
-            font-size: 4rem;
-            color: var(--accent);
-            opacity: 0.4;
-            margin-top: 10px;
-            animation: float 6s infinite ease-in-out;
-        }
+/* links */
+.links{
+ display:flex;
+ gap:20px;
+ flex-wrap:wrap;
+}
 
-        .news-content h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin: 0 0 15px;
-            color: #fff;
-        }
+.link-btn{
+ padding:12px 25px;
+ border:1px solid #fff;
+ text-decoration:none;
+ color:#fff;
+ transition:.3s;
+ position:relative;
+ overflow:hidden;
+}
 
-        .news-content p {
-            color: #bcbcbc;
-            font-size: 1rem;
-            line-height: 1.8;
-            max-width: 850px;
-            margin-bottom: 30px;
-        }
+.link-btn::before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:#fff;
+ transform:translateY(100%);
+ transition:.3s;
+ z-index:-1;
+}
 
-        .news-content p b { color: #fff; }
+.link-btn:hover::before{transform:translateY(0)}
+.link-btn:hover{color:#000}
 
-        /* --- СЕТКА РЕСУРСОВ --- */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+/* modal */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,0.85);
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ opacity:0;
+ pointer-events:none;
+ transition:.4s;
+}
 
-        .resource-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 35px;
-            text-decoration: none;
-            color: #fff;
-            transition: 0.4s cubic-bezier(0.2, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex; flex-direction: column; gap: 15px;
-        }
+.modal.active{
+ opacity:1;
+ pointer-events:auto;
+}
 
-        /* Эффект блика на карточке */
-        .resource-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-            transition: 0.5s;
-        }
+.modal-box{
+ max-width:750px;
+ padding:50px;
+ background:#0a0a0a;
+ border:1px solid rgba(255,255,255,0.1);
+ transform:scale(.9);
+ transition:.4s;
+}
 
-        .resource-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            background: rgba(139, 92, 246, 0.04);
-            box-shadow: 0 15px 40px rgba(109, 40, 217, 0.2);
-        }
+.modal.active .modal-box{transform:scale(1)}
 
-        .resource-card:hover::before { left: 100%; }
+.modal-box h2{margin-bottom:20px}
+.modal-box p{color:#bbb;line-height:1.7}
 
-        .rc-icon {
-            font-size: 1.8rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: inline-block;
-            text-shadow: 0 0 15px var(--accent-glow);
-        }
+footer{
+ text-align:center;
+ padding:50px;
+ color:#555;
+}
 
-        .resource-card h3 {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
+/* animations */
+@keyframes fadeUp{
+ to{opacity:1;transform:translateY(0)}
+}
 
-        .resource-card p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #999;
-            line-height: 1.6;
-        }
-
-        /* --- КНОПКИ --- */
-        .btn {
-            display: inline-block;
-            padding: 14px 30px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: 0.3s;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
-        }
-        .btn-accent:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 8px 25px rgba(255,255,255,0.4);
-        }
-
-        /* --- АНИМАЦИИ --- */
-        @keyframes neonGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes colorPulse {
-            0% { color: var(--accent); }
-            50% { color: #fff; text-shadow: 0 0 15px #fff; }
-            100% { color: var(--accent); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        footer {
-            text-align: center;
-            padding: 80px 0 40px;
-            font-size: 0.75rem;
-            color: #444;
-            letter-spacing: 2px;
-        }
-
-        /* Мобильная адаптация */
-        @media (max-width: 900px) {
-            .news-strip { flex-direction: column; text-align: center; padding: 30px; }
-            .ip-box { padding: 18px 30px; font-size: 1rem; }
-            .logo-main { letter-spacing: 10px; }
-        }
-    </style>
+</style>
 </head>
+
 <body>
 
-<div class="void-background"></div>
-<div class="bg-glyphs"></div>
-
+<header>
+<div class="logo">VOID SMP</div>
 <nav>
-    <div class="nav-container">
-        <a href="#" class="nav-logo">VOID<span>+</span> SMP</a>
-        <div class="nav-links">
-            <a href="https://discord.gg/kafGXsKnBD" target="_blank">DISCORD</a>
-            <a href="https://t.me/VoidVanilaSMP" target="_blank">TELEGRAM</a>
-        </div>
-    </div>
+<a href="#news">Новости</a>
+<a href="#links">Ссылки</a>
 </nav>
+</header>
 
-<div class="main-wrapper">
-    <section class="hero">
-        <div class="hero-title-wrap">
-            <h1 class="logo-main">VOID+</h1>
-        </div>
-        <div class="logo-sub">Community-Driven Vanilla+</div>
-        
-        <div class="ip-container" onclick="copyIP()">
-            <div class="ip-neon-border"></div>
-            <div class="ip-box">
-                <i class="fas fa-cube" style="color: var(--accent);"></i>
-                <span id="ipText">PLAY.VOIDPLUS.ME</span>
-                <i class="fas fa-copy" style="font-size: 1rem; color: #444;"></i>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+<h1>VOID</h1>
+<p>vanilla smp experience</p>
+<button class="btn" onclick="scrollToNews()">Смотреть новости</button>
+</section>
 
-    <div class="section-header">Broadcast</div>
+<section class="section" id="news">
+<div class="title">Новости</div>
+<div class="news-grid">
 
-    <section class="news-strip">
-        <div class="news-visual"><i class="fas fa-satellite-dish"></i></div>
-        <div class="news-content">
-            <div style="font-size: 0.7rem; color: #555; letter-spacing: 2px; margin-bottom: 5px;">APRIL 25, 2026</div>
-            <h2>Вайп 2.0: Эпоха Чародеев</h2>
-            <p>Пустота переродилась! Мы рады представить глобальное обновление. Главное нововведение — возвращение легендарного <b>Plasmo Voice</b> для идеального позиционирования звука в игре. </p>
-            <p>Кроме того, мир наполнился магией: мы ввели более <b>50+ уникальных зачарований</b>, которые вы можете выбить во всех данжах, деревнях и руинах. Ад открыт сразу, но Энд... Энд ждет лучших из вас.</p>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn btn-accent">Enchantment List</a>
-        </div>
-    </section>
+<div class="news-card" onclick="openNews()">
+<h3>Обновление сервера</h3>
+<p>Нажмите чтобы прочитать</p>
+</div>
 
-    <div class="section-header">Resources</div>
+</div>
+</section>
 
-    <div class="resources-grid">
-        <a href="https://discord.gg/kafGXsKnBD" class="resource-card" target="_blank">
-            <div class="rc-icon"><i class="fab fa-discord"></i></div>
-            <h3>Community Hub</h3>
-            <p>Discord — сердце нашего сервера. Ивенты, новости, тикеты поддержки.</p>
-        </a>
-        <a href="https://modrinth.com/plugin/plasmo-voice" class="resource-card" target="_blank">
-            <div class="rc-icon"><i class="fas fa-microphone-alt"></i></div>
-            <h3>Voice Plugin</h3>
-            <p>Скачай Plasmo Voice. Без него выживание будет немым!</p>
-        </a>
-        <a href="https://t.me/VoidVanilaSMP" class="resource-card" target="_blank">
-            <div class="rc-icon"><i class="fab fa-telegram-plane"></i></div>
-            <h3>Telegram Feed</h3>
-            <p>Быстрые анонсы, опросы и жизнь администрации сервера.</p>
-        </a>
-        <a href="#" class="resource-card">
-            <div class="rc-icon"><i class="fas fa-atlas"></i></div>
-            <h3>Server Wiki</h3>
-            <p>Полный гайд по механикам, правилам и экономике Void+.</p>
-        </a>
-    </div>
+<section class="section" id="links">
+<div class="title">Ссылки</div>
+<div class="links">
+<a class="link-btn" href="https://discord.gg/kafGXsKnBD" target="_blank">Discord</a>
+<a class="link-btn" href="https://t.me/VoidVanilaSMP" target="_blank">Telegram</a>
+</div>
+</section>
 
-    <footer>
-        &copy; 2026 VOID+ PROJECT. ALL RIGHTS RESERVED. NOT AFFILIATED WITH MOJANG.
-    </footer>
+<footer>© 2026 VOID SMP</footer>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2>Новости сервера</h2>
+<p>
+Здравствуйте! У нас есть новости насчет нашего любимого сервера.<br><br>
+Мы ввели новые фишки и вернули голосовой чат на Plasmo Voice.<br><br>
+Добавлено более 50+ зачарований, которые можно найти в данжах и деревнях.<br><br>
+Все старые функции сохранены.<br><br>
+Ад будет открыт сразу. Энд пока остается тайной.<br><br>
+<b>Полезные ссылки:</b><br>
+Enchantment List — список зачарований<br>
+Telegram канал — новости сервера
+</p>
+</div>
 </div>
 
 <script>
-    // Скрипт копирования IP
-    function copyIP() {
-        const ip = "PLAY.VOIDPLUS.ME";
-        navigator.clipboard.writeText(ip);
-        
-        // Красивое уведомление
-        const alertBox = document.createElement('div');
-        alertBox.style = "position:fixed;bottom:20px;right:20px;background:#fff;color:#000;padding:15px 25px;border-radius:10px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,0.5);z-index:10000;animation:slideIn 0.3s ease-out;";
-        alertBox.innerHTML = "<i class='fas fa-check-circle'></i> IP скопирован! Пустота ждет.";
-        document.body.appendChild(alertBox);
-        
-        setTimeout(() => {
-            alertBox.style.animation = "slideOut 0.3s ease-in";
-            setTimeout(() => document.body.removeChild(alertBox), 300);
-        }, 3000);
-    }
+const modal=document.getElementById('modal');
+function openNews(){modal.classList.add('active')}
+modal.onclick=()=>modal.classList.remove('active');
 
-    // CSS для уведомления
-    const style = document.createElement('style');
-    style.innerHTML = `
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-    `;
-    document.head.appendChild(style);
+function scrollToNews(){
+ document.getElementById('news').scrollIntoView();
+}
 </script>
 
 </body>
