@@ -1,313 +1,194 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Ultimate Vanilla Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --accent: #8b5cf6;
-            --accent-dark: #6d28d9;
-            --bg: #020202;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.07);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Void SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter;background:#000;color:#fff}
 
-        body {
-            background-color: var(--bg);
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+header{
+ position:fixed;width:100%;top:0;
+ display:flex;justify-content:space-between;
+ padding:20px 40px;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
+ border-bottom:1px solid rgba(255,255,255,0.05);
+}
 
-        /* Фоновые туманности */
-        .blob {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            border-radius: 50%;
-            filter: blur(80px);
-        }
+.logo{font-weight:600;letter-spacing:3px}
+nav a{margin-left:25px;color:#aaa;text-decoration:none}
+nav a:hover{color:#fff}
 
-        /* Навигация */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 20px 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-        }
+.hero{
+ height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 30px;
-        }
+.hero h1{
+ font-size:80px;
+ letter-spacing:10px;
+}
 
-        .nav-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
-        }
+.hero p{
+ margin-top:20px;
+ color:#888;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 120px 25px 50px;
-        }
+.btn{
+ margin-top:30px;
+ padding:12px 30px;
+ border:1px solid #fff;
+ background:transparent;
+ color:#fff;
+ cursor:pointer;
+ transition:.3s;
+}
 
-        /* Герой-секция */
-        .hero {
-            text-align: center;
-            padding: 60px 0;
-            position: relative;
-        }
+.btn:hover{
+ background:#fff;color:#000;
+}
 
-        .logo-main {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3.5rem, 12vw, 7rem);
-            letter-spacing: 20px;
-            background: linear-gradient(180deg, #fff 20%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-            filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
-        }
+.section{
+ padding:100px 40px;
+ max-width:1100px;
+ margin:auto;
+}
 
-        .ip-badge {
-            margin-top: 40px;
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(90deg, #111, #1a1a1a);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
+.title{
+ font-size:28px;
+ margin-bottom:40px;
+}
 
-        .ip-text {
-            padding: 15px 30px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
-            font-size: 1.1rem;
-        }
+.news-card{
+ border:1px solid rgba(255,255,255,0.1);
+ padding:25px;
+ cursor:pointer;
+ transition:.3s;
+}
 
-        .ip-copy {
-            background: var(--accent);
-            padding: 15px 25px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.news-card:hover{
+ background:rgba(255,255,255,0.03);
+}
 
-        .ip-copy:hover { background: var(--accent-dark); }
+.links{
+ margin-top:40px;
+ display:flex;
+ gap:20px;
+}
 
-        /* Лента новостей */
-        .section-header {
-            margin: 80px 0 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--accent);
-            letter-spacing: 4px;
-        }
+.links a{
+ border:1px solid #fff;
+ padding:10px 20px;
+ text-decoration:none;
+ color:#fff;
+}
 
-        .section-header::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--border), transparent);
-        }
+.links a:hover{
+ background:#fff;color:#000;
+}
 
-        .news-box {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
+footer{
+ text-align:center;
+ padding:40px;
+ color:#555;
+}
 
-        .news-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            opacity: 0.5;
-        }
+.modal{
+ position:fixed;
+ width:100%;height:100%;
+ top:0;left:0;
+ background:rgba(0,0,0,0.9);
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ opacity:0;
+ pointer-events:none;
+ transition:.3s;
+}
 
-        .news-content h2 {
-            font-family: 'Orbitron', sans-serif;
-            margin: 0 0 10px;
-            font-size: 1.8rem;
-        }
+.modal.active{
+ opacity:1;
+ pointer-events:auto;
+}
 
-        .news-content p {
-            color: #aaa;
-            margin-bottom: 20px;
-        }
+.modal-box{
+ max-width:700px;
+ padding:40px;
+ border:1px solid rgba(255,255,255,0.1);
+ background:#0a0a0a;
+ line-height:1.7;
+}
 
-        /* Сетка ссылок */
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.modal-box h2{margin-bottom:20px}
+.modal-box p{color:#ccc}
 
-        .link-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: white;
-            transition: 0.4s;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .link-card i {
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-
-        .link-card:hover {
-            border-color: var(--accent);
-            background: rgba(139, 92, 246, 0.05);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .link-card h3 {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-        }
-
-        .link-card p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        .btn-link {
-            display: inline-block;
-            padding: 12px 25px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-
-        .btn-link:hover {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-            transform: scale(1.05);
-        }
-
-        footer {
-            text-align: center;
-            padding: 80px 0 40px;
-            opacity: 0.3;
-            font-size: 0.8rem;
-        }
-
-        @media (max-width: 768px) {
-            .news-box { flex-direction: column; text-align: center; }
-            .logo-main { letter-spacing: 8px; }
-        }
-    </style>
+</style>
 </head>
 <body>
 
-<div class="blob" style="top: -100px; right: -100px;"></div>
-<div class="blob" style="bottom: 100px; left: -200px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, rgba(0,0,0,0) 70%);"></div>
-
+<header>
+<div class="logo">VOID SMP</div>
 <nav>
-    <div class="nav-container">
-        <div class="nav-logo">VOID<span style="color: var(--accent);">+</span></div>
-        <div style="display: flex; gap: 20px;">
-            <a href="https://discord.gg/kafGXsKnBD" style="color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600;">DISCORD</a>
-            <a href="https://t.me/VoidVanilaSMP" style="color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600;">TELEGRAM</a>
-        </div>
-    </div>
+<a href="#news">Новости</a>
+<a href="#links">Ссылки</a>
 </nav>
+</header>
 
-<div class="container">
-    <section class="hero">
-        <h1 class="logo-main">VOID+</h1>
-        <p style="color: var(--accent); letter-spacing: 5px; font-weight: 700; text-transform: uppercase;">The Next Gen Vanilla+</p>
-        
-        <div class="ip-badge">
-            <div class="ip-text" id="ipText">PLAY.VOIDPLUS.ME</div>
-            <div class="ip-copy" onclick="copyIP()"><i class="fas fa-copy"></i></div>
-        </div>
-    </section>
+<section class="hero">
+<h1>VOID</h1>
+<p>Vanilla SMP сервер нового уровня</p>
+<button class="btn" onclick="scrollToNews()">Смотреть новости</button>
+</section>
 
-    <div class="section-header">LATEST BROADCAST</div>
+<section class="section" id="news">
+<div class="title">Новости</div>
+<div class="news-card" onclick="openNews()">
+<b>Обновление сервера</b>
+<p>Нажмите чтобы прочитать...</p>
+</div>
+</section>
 
-    <section class="news-box">
-        <div class="news-icon"><i class="fas fa-bolt"></i></div>
-        <div class="news-content">
-            <h2>Глобальный Вайп & 50+ чар</h2>
-            <p>Мы полностью переработали баланс! Возвращение к <b>Plasmo Voice</b>, ввод уникальных зачарований, которые можно выбить в любом данже, и моментальное открытие Ада. Энд закрыт на замок — успей подготовиться!</p>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn-link">СПИСОК ЗАЧАРОВАНИЙ</a>
-        </div>
-    </section>
+<section class="section" id="links">
+<div class="title">Ссылки</div>
+<div class="links">
+<a href="https://discord.gg/kafGXsKnBD" target="_blank">Discord</a>
+<a href="https://t.me/VoidVanilaSMP" target="_blank">Telegram</a>
+</div>
+</section>
 
-    <div class="section-header">RESOURCES</div>
+<footer>© 2026 VOID SMP</footer>
 
-    <div class="links-grid">
-        <a href="https://discord.gg/kafGXsKnBD" class="link-card" target="_blank">
-            <i class="fab fa-discord"></i>
-            <h3>Discord Server</h3>
-            <p>Ивенты, поддержка и основное комьюнити сервера.</p>
-        </a>
-        <a href="https://t.me/VoidVanilaSMP" class="link-card" target="_blank">
-            <i class="fab fa-telegram"></i>
-            <h3>Telegram Channel</h3>
-            <p>Оперативные новости и жизнь сервера в твоем телефоне.</p>
-        </a>
-        <a href="https://modrinth.com/plugin/plasmo-voice" class="link-card" target="_blank">
-            <i class="fas fa-microphone"></i>
-            <h3>Plasmo Voice</h3>
-            <p>Скачай мод для общения. Без него игра будет неполной!</p>
-        </a>
-        <a href="#" class="link-card">
-            <i class="fas fa-map"></i>
-            <h3>Online Map</h3>
-            <p>Смотри за постройками других игроков в реальном времени.</p>
-        </a>
-    </div>
-
-    <footer>
-        &copy; 2026 VOID+ SMP • MADE FOR THE COMMUNITY
-    </footer>
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2>Новости сервера</h2>
+<p>
+Здравствуйте! У нас есть новости насчет нашего любимого сервера.<br><br>
+Мы ввели новые фишки и вернули голосовой чат на Plasmo Voice.<br><br>
+Добавлено более 50+ зачарований, которые можно найти в данжах и деревнях.<br><br>
+Все старые функции сохранены.<br><br>
+Ад будет открыт сразу. Энд пока остается тайной.<br><br>
+<b>Полезные ссылки:</b><br>
+Enchantment List — список зачарований<br>
+Telegram канал — новости сервера
+</p>
+</div>
 </div>
 
 <script>
-    function copyIP() {
-        const ip = "PLAY.VOIDPLUS.ME";
-        navigator.clipboard.writeText(ip);
-        alert("IP успешно скопирован! До встречи на сервере.");
-    }
+const modal=document.getElementById('modal');
+function openNews(){modal.classList.add('active')}
+modal.onclick=()=>modal.classList.remove('active');
+
+function scrollToNews(){
+ document.getElementById('news').scrollIntoView({behavior:'smooth'});
+}
 </script>
 
 </body>
