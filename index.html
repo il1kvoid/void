@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #6d28d9; /* Глубокий фиолетовый для акцентов */
+            --accent: #6d28d9; 
             --bg: #050505;
             --card-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -22,7 +22,6 @@
             background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
         }
 
-        /* Анимированный фон с частицами */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -41,7 +40,7 @@
 
         header {
             text-align: center;
-            padding: 120px 0 60px;
+            padding: 100px 0 40px;
             animation: fadeInDown 1s ease-out;
         }
 
@@ -49,25 +48,24 @@
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(3rem, 10vw, 6rem);
             margin: 0;
-            letter-spacing: 20px;
+            letter-spacing: 15px;
+            text-transform: uppercase;
             background: linear-gradient(to bottom, #fff 40%, #444 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
         .subtitle {
-            font-size: 1rem;
-            letter-spacing: 8px;
+            font-size: 0.9rem;
+            letter-spacing: 6px;
             color: var(--accent);
             text-transform: uppercase;
             margin-top: 10px;
             font-weight: 600;
         }
 
-        /* Кнопка IP с эффектом свечения */
         .ip-box {
-            margin-top: 50px;
+            margin-top: 40px;
             padding: 18px 45px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
@@ -77,84 +75,126 @@
             transition: 0.4s;
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 3px;
-            position: relative;
-            overflow: hidden;
         }
 
         .ip-box:hover {
             background: var(--accent);
-            border-color: var(--accent);
             box-shadow: 0 0 30px rgba(109, 40, 217, 0.4);
             transform: scale(1.05);
         }
 
-        /* Сетка карточек */
+        /* Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            gap: 20px;
             width: 100%;
-            margin: 80px 0;
+            margin: 60px 0;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--glass-border);
-            padding: 40px;
+            padding: 35px;
             border-radius: 20px;
             backdrop-filter: blur(12px);
             text-decoration: none;
             color: white;
             transition: 0.3s;
-            position: relative;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 20px;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: 0.5s;
+            cursor: pointer;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.07);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--accent);
+        }
+
+        .card.news-card {
+            border: 1px solid rgba(109, 40, 217, 0.3);
+            background: linear-gradient(145deg, rgba(109, 40, 217, 0.1), rgba(0,0,0,0));
         }
 
         .card h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            margin: 0 0 15px 0;
-            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 0 10px 0;
         }
 
         .card p {
-            color: #aaa;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0;
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        footer {
-            padding: 60px 0;
-            opacity: 0.3;
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .modal-content {
+            background: #0a0a0a;
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+        }
+
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        .modal-text {
+            line-height: 1.8;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .modal-links {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
             font-size: 0.8rem;
-            text-align: center;
-            letter-spacing: 2px;
+            font-weight: bold;
+            transition: 0.3s;
         }
 
-        /* Анимации */
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        footer { padding: 40px; opacity: 0.2; text-align: center; font-size: 0.7rem; }
+
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Мобильная адаптация */
-        @media (max-width: 768px) {
-            h1 { letter-spacing: 10px; }
         }
     </style>
 </head>
@@ -165,59 +205,82 @@
 <div class="container">
     <header>
         <h1>VOID+</h1>
-        <div class="subtitle">Vanilla Plus Server</div>
+        <div class="subtitle">Premium Vanilla+ SMP</div>
         <div class="ip-box" onclick="copyIP()">PLAY.VOIDPLUS.ME</div>
     </header>
 
     <div class="grid">
-        <a href="https://discord.gg/kafGXsKnBD" class="card" target="_blank">
-            <h3>DISCORD</h3>
-            <p>Главный хаб сообщества. Ивенты, анонсы и живое общение с администрацией.</p>
-        </a>
+        <div class="card news-card" onclick="openModal()">
+            <h3>ЧТО НОВОГО?</h3>
+            <p>Глобальное обновление: 50+ зачарований, смена Voice Chat и планы на Энд...</p>
+            <span style="color: var(--accent); font-size: 0.8rem; font-weight: bold;">ЧИТАТЬ ПОЛНОСТЬЮ →</span>
+        </div>
+
         <a href="https://t.me/VoidVanilaSMP" class="card" target="_blank">
             <h3>TELEGRAM</h3>
-            <p>Следи за новостями сервера прямо в своем мессенджере. Кратко и по делу.</p>
+            <p>Наш новостной канал. Все анонсы и важные изменения здесь.</p>
         </a>
-        <a href="https://modrinth.com/plugin/simple-voice-chat" class="card" target="_blank">
-            <h3>VOICE CHAT</h3>
-            <p>Необходимый мод для погружения. Общайся с игроками поблизости в игре.</p>
+
+        <a href="https://modrinth.com/plugin/plasmo-voice" class="card" target="_blank">
+            <h3>PLASMO VOICE</h3>
+            <p>Мы вернулись на Plasmo! Скачай плагин для лучшего звука на сервере.</p>
         </a>
-        <a href="#" class="card">
-            <h3>LIVE MAP</h3>
-            <p>Взгляни на мир сверху. Карта всех построек и биомов в реальном времени.</p>
-        </a>
-        <a href="#" class="card">
-            <h3>WIKI & RULES</h3>
-            <p>База знаний сервера. Ознакомься с правилами, чтобы приключение было долгим.</p>
+
+        <a href="https://discord.gg/kafGXsKnBD" class="card" target="_blank">
+            <h3>DISCORD</h3>
+            <p>Живое общение, техподдержка и поиск тимейтов в нашей пустоте.</p>
         </a>
     </div>
 
-    <footer>
-        &copy; 2026 VOID+ SMP. NOT AN OFFICIAL MINECRAFT PRODUCT.
-    </footer>
+    <footer>&copy; 2026 VOID+ PROJECT. ALL RIGHTS RESERVED.</footer>
+</div>
+
+<div class="modal-overlay" id="newsModal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2>ОБНОВЛЕНИЕ СЕРВЕРА</h2>
+        <div class="modal-text">
+            <p>Здравствуйте! У нас есть отличные новости насчет нашего любимого сервера.</p>
+            <p>✨ <b>Новые фишки:</b> Мы внедрили систему из <b>50+ уникальных зачарований</b>. Теперь их можно найти во всех обычных данжах, деревнях и руинах. Исследуйте мир — это того стоит!</p>
+            <p>🎙 <b>Голосовой чат:</b> По вашим просьбам мы поменяли <i>Simple Voice Chat</i> обратно на <b>Plasmo Voice</b>. Вас ждут новые функции и более стабильная связь.</p>
+            <p>🔥 <b>Миры:</b> Открытие Ада планируется моментально с первого дня вайпа. А вот <b>Энд...</b> Энд пока останется тайной, которую вам предстоит разгадать позже.</p>
+        </div>
+        <div class="modal-links">
+            <a href="#" class="modal-btn">Enchantment List</a>
+            <a href="https://t.me/VoidVanilaSMP" class="modal-btn" style="background: #222;">Телеграм Канал</a>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
     particlesJS("particles-js", {
         "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": "#ffffff" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.2, "random": true },
+            "opacity": { "value": 0.15, "random": true },
             "size": { "value": 2, "random": true },
             "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-        },
-        "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "bubble" } },
-            "modes": { "bubble": { "distance": 200, "size": 4, "duration": 2, "opacity": 0.8, "speed": 3 } }
+            "move": { "enable": true, "speed": 0.8, "direction": "none", "random": true, "out_mode": "out" }
         }
     });
 
+    function openModal() {
+        const modal = document.getElementById('newsModal');
+        modal.style.display = 'flex';
+        setTimeout(() => modal.style.opacity = '1', 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('newsModal');
+        modal.style.opacity = '0';
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        alert("IP сервера скопирован! Ждем тебя в Пустоте.");
+        alert("IP скопирован! Увидимся на Void+");
     }
 </script>
 
