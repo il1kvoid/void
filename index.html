@@ -3,95 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Minecraft Vanilla+</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Void+ | Advanced Vanilla Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent: #6d28d9; /* Глубокий фиолетовый для акцентов */
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         body {
-            background-color: #000000;
+            background-color: var(--bg);
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+        }
+
+        /* Анимированный фон с частицами */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
+
         header {
             text-align: center;
-            padding: 80px 20px;
+            padding: 120px 0 60px;
+            animation: fadeInDown 1s ease-out;
         }
+
         h1 {
-            font-size: 4rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
             margin: 0;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #ffffff;
+            letter-spacing: 20px;
+            background: linear-gradient(to bottom, #fff 40%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
+
         .subtitle {
-            margin-top: 20px;
-            color: #888888;
-            letter-spacing: 3px;
+            font-size: 1rem;
+            letter-spacing: 8px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 10px;
+            font-weight: 600;
         }
-        .ip-container {
-            margin-top: 30px;
-            padding: 15px 30px;
-            border: 1px solid #ffffff;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .ip-container:hover {
-            background: #ffffff;
-            color: #000;
-        }
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 90%;
-            max-width: 1000px;
+
+        /* Кнопка IP с эффектом свечения */
+        .ip-box {
             margin-top: 50px;
+            padding: 18px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
         }
+
+        .ip-box:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(109, 40, 217, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin: 80px 0;
+        }
+
         .card {
-            background: #111111;
-            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
             text-decoration: none;
-            color: #ffffff;
-            border: 1px solid #222;
+            color: white;
             transition: 0.3s;
+            position: relative;
         }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+
         .card:hover {
-            border-color: #ffffff;
-            background: #1a1a1a;
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            color: #fff;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        footer {
+            padding: 60px 0;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Анимации */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            h1 { letter-spacing: 10px; }
         }
     </style>
 </head>
 <body>
+
+<div id="particles-js"></div>
+
+<div class="container">
     <header>
         <h1>VOID+</h1>
-        <div class="subtitle">Vanilla Plus Server Experience</div>
-        <div class="ip-container" onclick="copyIP()">PLAY.VOIDPLUS.ME</div>
+        <div class="subtitle">Vanilla Plus Server</div>
+        <div class="ip-box" onclick="copyIP()">PLAY.VOIDPLUS.ME</div>
     </header>
 
-    <div class="links-grid">
+    <div class="grid">
         <a href="https://discord.gg/kafGXsKnBD" class="card" target="_blank">
-            <h3>Discord</h3>
-            <p>Наше сообщество и новости.</p>
+            <h3>DISCORD</h3>
+            <p>Главный хаб сообщества. Ивенты, анонсы и живое общение с администрацией.</p>
+        </a>
+        <a href="https://t.me/VoidVanilaSMP" class="card" target="_blank">
+            <h3>TELEGRAM</h3>
+            <p>Следи за новостями сервера прямо в своем мессенджере. Кратко и по делу.</p>
+        </a>
+        <a href="https://modrinth.com/plugin/simple-voice-chat" class="card" target="_blank">
+            <h3>VOICE CHAT</h3>
+            <p>Необходимый мод для погружения. Общайся с игроками поблизости в игре.</p>
         </a>
         <a href="#" class="card">
-            <h3>Карта</h3>
-            <p>Мир в реальном времени.</p>
+            <h3>LIVE MAP</h3>
+            <p>Взгляни на мир сверху. Карта всех построек и биомов в реальном времени.</p>
         </a>
         <a href="#" class="card">
-            <h3>Вики</h3>
-            <p>Правила и механики.</p>
+            <h3>WIKI & RULES</h3>
+            <p>База знаний сервера. Ознакомься с правилами, чтобы приключение было долгим.</p>
         </a>
     </div>
 
-    <script>
-        function copyIP() {
-            navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-            alert("IP скопирован!");
+    <footer>
+        &copy; 2026 VOID+ SMP. NOT AN OFFICIAL MINECRAFT PRODUCT.
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.2, "random": true },
+            "size": { "value": 2, "random": true },
+            "line_linked": { "enable": false },
+            "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+        },
+        "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "bubble" } },
+            "modes": { "bubble": { "distance": 200, "size": 4, "duration": 2, "opacity": 0.8, "speed": 3 } }
         }
-    </script>
+    });
+
+    function copyIP() {
+        navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
+        alert("IP сервера скопирован! Ждем тебя в Пустоте.");
+    }
+</script>
+
 </body>
 </html>
