@@ -3,100 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Luxury SMP Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>Void+ | High-End Vanilla SMP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --bg: #000000;
             --text: #ffffff;
-            --accent: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; cursor: none; } /* Скрываем дефолтный курсор */
+        * { box-sizing: border-box; scroll-behavior: smooth; }
         body {
             margin: 0; background: var(--bg); color: var(--text);
             font-family: 'Montserrat', sans-serif; overflow-x: hidden;
+            background-color: #000;
         }
 
-        /* --- LUXURY CUSTOM CURSOR --- */
-        #cursor {
-            position: fixed; width: 20px; height: 20px; border: 1px solid #fff;
-            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background 0.3s; z-index: 9999;
+        /* --- ЖИВОЙ ФОН ПУСТОТЫ --- */
+        #bg-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden; background: #000;
+        }
+        
+        .nebula {
+            position: absolute; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 50%);
+            filter: blur(100px); animation: move 20s infinite alternate;
+            opacity: 0.5;
         }
 
-        /* --- GENERATIVE BACKGROUND --- */
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        #starfield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(5%, 5%); }
+        }
+
+        /* --- UI ELEMENTS --- */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 50px; position: relative; z-index: 2; }
 
-        /* --- PREMIER NAVBAR --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 30px 0;
-            backdrop-filter: blur(30px); border-bottom: 1px solid var(--border); z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 25px 0;
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000;
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 10px; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .nav-links { display: flex; gap: 40px; }
+        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; font-size: 1.4rem; color: #fff; text-decoration: none; }
+        
         .nav-links a { 
             text-decoration: none; color: rgba(255,255,255,0.5); 
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s;
+            font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; margin-left: 35px; transition: 0.4s;
         }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 15px #fff; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        /* --- HERO SECTION --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        /* --- HERO --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 {
-            font-family: 'Orbitron'; font-size: clamp(5rem, 20vw, 12rem);
-            margin: 0; line-height: 0.8; letter-spacing: -8px;
-            animation: breathe 5s infinite alternate;
+            font-family: 'Orbitron'; font-size: clamp(4rem, 18vw, 11rem);
+            margin: 0; line-height: 0.9; letter-spacing: -5px;
+            background: linear-gradient(180deg, #fff 30%, #333 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
         }
-        @keyframes breathe {
-            from { filter: drop-shadow(0 0 0px #fff); opacity: 0.8; }
-            to { filter: drop-shadow(0 0 30px rgba(255,255,255,0.4)); opacity: 1; }
+        .v-badge { background: #fff; color: #000; padding: 6px 18px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; font-size: 0.9rem; margin-top: 25px; }
+
+        .ip-card {
+            margin-top: 60px; background: var(--glass); border: 1px solid var(--border);
+            padding: 10px; border-radius: 100px; display: flex; align-items: center;
+            transition: 0.5s; cursor: pointer; backdrop-filter: blur(10px);
         }
-        .v-tag { background: #fff; color: #000; padding: 7px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; margin-top: 30px; }
+        .ip-card:hover { border-color: #fff; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .ip-val { padding: 15px 50px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 4px; }
+        .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; }
 
-        .ip-module {
-            margin-top: 60px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            padding: 8px; border-radius: 100px; display: flex; align-items: center; transition: 0.5s;
-        }
-        .ip-module:hover { border-color: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.1); transform: translateY(-5px); }
-        .ip-address { padding: 15px 50px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 5px; }
-        .ip-btn { background: #fff; color: #000; padding: 15px 35px; border-radius: 100px; font-weight: 900; }
-
-        /* --- CONTENT BLOCKS --- */
-        .section-title { font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 12px; margin: 150px 0 60px; color: #444; text-align: center; }
-
-        .premium-card {
-            background: var(--card-bg); border: 1px solid var(--border); border-radius: 40px;
-            padding: 60px; backdrop-filter: blur(20px); transition: 0.5s;
-        }
-        .premium-card:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
-
-        .grid-main { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        /* --- GRID --- */
+        .section-title { font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 10px; margin: 150px 0 60px; text-align: center; color: #444; }
         
-        .feature-box {
-            padding: 40px; border-radius: 30px; border: 1px solid var(--border); transition: 0.5s;
-            text-decoration: none; color: #fff; display: block;
+        .main-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
+        .glass-card {
+            background: var(--glass); border: 1px solid var(--border); border-radius: 40px;
+            padding: 60px; backdrop-filter: blur(15px); transition: 0.4s;
         }
-        .feature-box:hover { background: #fff; color: #000; transform: scale(1.03); }
-        .feature-box i { font-size: 2.5rem; margin-bottom: 20px; }
+        .glass-card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
 
-        /* --- FOOTER --- */
-        footer { padding: 100px 0 50px; text-align: center; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; border-top: 1px solid var(--border); }
+        .feature-item {
+            background: var(--glass); border: 1px solid var(--border); padding: 35px;
+            border-radius: 30px; text-decoration: none; color: #fff; display: block;
+            transition: 0.4s; backdrop-filter: blur(10px);
+        }
+        .feature-item:hover { background: #fff; color: #000; transform: scale(1.02); }
+        .feature-item i { font-size: 2rem; margin-bottom: 20px; display: block; }
 
-        @media (max-width: 1100px) { .grid-main { grid-template-columns: 1fr; } }
+        footer { padding: 100px 0; text-align: center; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; border-top: 1px solid var(--border); }
+
+        @media (max-width: 1000px) { .main-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<canvas id="bg-canvas"></canvas>
+<div id="bg-container">
+    <div class="nebula"></div>
+    <canvas id="starfield"></canvas>
+</div>
 
 <nav>
     <div class="container nav-flex">
@@ -110,40 +120,40 @@
 </nav>
 
 <div class="container">
-    <section class="hero" data-aos="zoom-in">
+    <section class="hero" data-aos="zoom-out">
         <h1>VOID+</h1>
-        <div class="v-tag">1.21.11</div>
-        <div class="ip-module" onclick="copyIP()">
-            <div class="ip-address" id="ip-text">PLAY.VOIDPLUS.ME</div>
-            <div class="ip-btn">COPY</div>
+        <div class="v-badge">1.21.11</div>
+        <div class="ip-card" onclick="copyIP()">
+            <div class="ip-val" id="ip-text">PLAY.VOIDPLUS.ME</div>
+            <div class="ip-copy">COPY</div>
         </div>
     </section>
 
-    <div class="section-title">THE NEWS</div>
-    <div class="grid-main">
-        <div class="premium-card" data-aos="fade-right">
-            <span style="opacity: 0.4; font-size: 0.8rem; font-weight: 800;">SEASON UPDATE // 2026</span>
-            <h2 style="font-family: 'Orbitron'; font-size: 3rem; margin: 20px 0;">Pure Experience</h2>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #aaa;">Добро пожаловать в мир, где нет ничего лишнего. Мы создали пространство для тех, кто ценит классический дух игры с современными технологиями общения. Версия 1.21.11 — это стабильность, красота и сообщество друзей.</p>
-            <a href="https://t.me/VoidVanilaSMP" target="_blank" style="display:inline-block; margin-top:30px; border:1px solid #fff; color:#fff; padding:15px 40px; text-decoration:none; border-radius:100px; font-weight:700;">КАНАЛ В ТЕЛЕГРАМ</a>
+    <div class="section-title">PROJECT LOG</div>
+    <div class="main-grid">
+        <div class="glass-card" data-aos="fade-right">
+            <span style="font-weight: 800; font-size: 0.7rem; color: #666;">EST. 2026 // SEASON II</span>
+            <h2 style="font-family: 'Orbitron'; font-size: 3rem; margin: 20px 0;">The Purest Form of Vanilla</h2>
+            <p style="color: #888; line-height: 1.8; font-size: 1.1rem;">Мы верим в игру без границ. Void+ — это не просто сервер, это закрытое сообщество, где каждый игрок вносит свой вклад в общую историю. Никаких донатов, только общение, строительство и чистый геймплей на версии 1.21.11.</p>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank" style="display:inline-block; margin-top:30px; background:#fff; color:#000; padding:15px 40px; border-radius:10px; text-decoration:none; font-weight:800;">ПРИСОЕДИНИТЬСЯ В TG</a>
         </div>
-        
-        <div class="side-links" style="display: flex; flex-direction: column; gap: 20px;">
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feature-box" data-aos="fade-left">
-                <i class="fas fa-microphone-alt"></i>
-                <h3>PLASMO VOICE</h3>
-                <p style="opacity: 0.6; font-size: 0.9rem;">Общайся голосом. Это основа нашего геймплея.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feature-item" data-aos="fade-left">
+                <i class="fas fa-microphone-lines"></i>
+                <h3 style="font-family: 'Orbitron';">VOICE CHAT</h3>
+                <p style="opacity: 0.5; font-size: 0.9rem;">Интеграция Plasmo Voice. Слышьте друзей так, будто они рядом.</p>
             </a>
-            <div class="feature-box" data-aos="fade-left" data-aos-delay="100">
-                <i class="fas fa-scroll"></i>
-                <h3>CUSTOM ENCHANTS</h3>
-                <p style="opacity: 0.6; font-size: 0.9rem;">50+ новых механик без потери ванильного духа.</p>
+            <div class="feature-item" data-aos="fade-left" data-aos-delay="100">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <h3 style="font-family: 'Orbitron';">NO LIMITS</h3>
+                <p style="opacity: 0.5; font-size: 0.9rem;">50+ кастомных чар и полная свобода творчества.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; MMXXVI VOID+ PROJECT • THE ART OF VANILLA
+        &copy; MMXXVI VOID+ PROJECT • VANILLA SURVIVAL
     </footer>
 </div>
 
@@ -151,75 +161,64 @@
 <script>
     AOS.init({ duration: 1000, once: true });
 
-    // --- LUXURY CURSOR LOGIC ---
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    document.querySelectorAll('a, .ip-module, .feature-box').forEach(el => {
-        el.addEventListener('mouseenter', () => { 
-            cursor.style.width = '60px'; cursor.style.height = '60px'; 
-            cursor.style.background = 'rgba(255,255,255,0.1)';
-        });
-        el.addEventListener('mouseleave', () => { 
-            cursor.style.width = '20px'; cursor.style.height = '20px';
-            cursor.style.background = 'transparent';
-        });
-    });
-
-    // --- GENERATIVE MESH BACKGROUND ---
-    const canvas = document.getElementById('bg-canvas');
+    // --- ЛОГИКА ЖИВОГО ПАРАЛЛАКС-ФОНА ---
+    const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
-    let nodes = [];
+    let stars = [];
+    let mouse = { x: 0, y: 0 };
 
-    function resize() {
+    function init() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    for(let i=0; i<100; i++) {
-        nodes.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5
-        });
+        stars = [];
+        for (let i = 0; i < 200; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 1.5,
+                opacity: Math.random(),
+                speedX: (Math.random() - 0.5) * 0.2,
+                speedY: (Math.random() - 0.5) * 0.2
+            });
+        }
     }
 
     function draw() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-        ctx.lineWidth = 1;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            // Движение звезд + легкий параллакс от мыши
+            let dx = (mouse.x - canvas.width/2) * 0.01;
+            let dy = (mouse.y - canvas.height/2) * 0.01;
+            
+            ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+            ctx.beginPath();
+            ctx.arc(s.x + dx, s.y + dy, s.size, 0, Math.PI * 2);
+            ctx.fill();
 
-        nodes.forEach((n, i) => {
-            n.x += n.vx; n.y += n.vy;
-            if(n.x < 0 || n.x > canvas.width) n.vx *= -1;
-            if(n.y < 0 || n.y > canvas.height) n.vy *= -1;
+            s.x += s.speedX;
+            s.y += s.speedY;
 
-            for(let j=i+1; j<nodes.length; j++) {
-                let dist = Math.hypot(n.x - nodes[j].x, n.y - nodes[j].y);
-                if(dist < 150) {
-                    ctx.beginPath();
-                    ctx.moveTo(n.x, n.y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.stroke();
-                }
-            }
+            if(s.x < 0) s.x = canvas.width;
+            if(s.x > canvas.width) s.x = 0;
+            if(s.y < 0) s.y = canvas.height;
+            if(s.y > canvas.height) s.y = 0;
         });
         requestAnimationFrame(draw);
     }
-    draw();
+
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    window.addEventListener('resize', init);
+    init(); draw();
 
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        const ipText = document.getElementById('ip-text');
-        const oldText = ipText.innerText;
-        ipText.innerText = "COPIED TO CLIPBOARD";
-        setTimeout(() => { ipText.innerText = oldText; }, 2000);
+        const t = document.getElementById('ip-text');
+        t.innerText = "COPIED!";
+        setTimeout(() => { t.innerText = "PLAY.VOIDPLUS.ME"; }, 2000);
     }
 </script>
 </body>
