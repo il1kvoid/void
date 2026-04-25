@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Official SMP</title>
+    <title>Void+ | Official SMP Portal</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;900&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,14 +22,14 @@
         body {
             margin: 0; background: var(--bg); color: #fff;
             font-family: var(--font-main); overflow-x: hidden;
-            padding-top: 100px;
+            padding-top: 120px; /* Отступ чтобы шапка не перекрывала VOID+ */
         }
 
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.2; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 10; }
 
-        /* --- NAV --- */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; padding: 25px 0;
             z-index: 1000; backdrop-filter: blur(25px); border-bottom: 1px solid var(--border);
@@ -43,8 +43,8 @@
         }
         .nav-links a:hover { color: #fff; }
 
-        /* --- HERO --- */
-        .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        /* --- HERO SECTION --- */
+        .hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 12vw, 9rem); margin: 0; font-weight: 900; letter-spacing: -4px; line-height: 1; }
         .hero-sub { color: #444; font-family: var(--font-head); letter-spacing: 8px; font-size: 0.8rem; margin-top: 20px; text-transform: uppercase; }
 
@@ -56,16 +56,16 @@
         .ip-val { padding: 0 35px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
         .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
 
-        /* --- QUICK LINKS --- */
+        /* --- LINKS GRID --- */
         .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 40px; width: 100%; }
         .l-box { 
-            background: var(--glass); border: 1px solid var(--border); padding: 20px; 
-            border-radius: 15px; text-decoration: none; color: #fff; transition: 0.3s;
+            background: var(--glass); border: 1px solid var(--border); padding: 22px; 
+            border-radius: 18px; text-decoration: none; color: #fff; transition: 0.3s;
             display: flex; align-items: center; gap: 15px; font-size: 0.8rem; font-weight: 700;
         }
         .l-box:hover { background: #fff; color: #000; }
 
-        /* --- UPDATES --- */
+        /* --- NEWS / UPDATES --- */
         .section-header { margin: 120px 0 40px; font-family: var(--font-head); font-size: 1.8rem; letter-spacing: -1px; display: flex; align-items: center; gap: 20px; }
         .section-header::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
 
@@ -75,10 +75,10 @@
         .news-card h3 { margin: 0 0 10px; font-family: var(--font-head); font-size: 1rem; }
         .news-card p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; }
 
-        /* --- RULES --- */
+        /* --- RULES INTERFACE --- */
         .rules-ui {
             background: var(--glass); border: 1px solid var(--border); border-radius: 35px;
-            display: grid; grid-template-columns: 300px 1fr; min-height: 800px; overflow: hidden; margin-bottom: 100px;
+            display: grid; grid-template-columns: 300px 1fr; min-height: 850px; overflow: hidden; margin-bottom: 100px;
         }
         .rules-sidebar { border-right: 1px solid var(--border); padding: 30px; background: rgba(0,0,0,0.2); }
         .r-item { 
@@ -87,7 +87,7 @@
         }
         .r-item.active { background: #fff; color: #000; }
         
-        .rules-body { padding: 50px; height: 800px; overflow-y: auto; }
+        .rules-body { padding: 50px; height: 850px; overflow-y: auto; }
         .rules-body h2 { font-family: var(--font-head); margin-top: 0; font-size: 1.6rem; margin-bottom: 30px; }
         .rule-block { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 25px; margin-bottom: 15px; line-height: 1.7; color: #ccc; }
         .rule-block b { color: #fff; }
@@ -95,7 +95,11 @@
 
         footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
 
-        @media (max-width: 900px) { .rules-ui { grid-template-columns: 1fr; } .rules-sidebar { display: flex; overflow-x: auto; padding: 15px; } .r-item { white-space: nowrap; margin-bottom: 0; margin-right: 10px; } }
+        @media (max-width: 900px) { 
+            .rules-ui { grid-template-columns: 1fr; } 
+            .rules-sidebar { display: flex; overflow-x: auto; padding: 15px; } 
+            .r-item { white-space: nowrap; margin-bottom: 0; margin-right: 10px; } 
+        }
     </style>
 </head>
 <body>
@@ -136,12 +140,12 @@
         <div class="news-card" data-aos="fade-up">
             <span>25.04.2026</span>
             <h3>Portal Online</h3>
-            <p>Запуск официального веб-портала. Все правила и навигация теперь доступны в едином стиле.</p>
+            <p>Запуск официального веб-портала. Все правила, новости и навигация проекта теперь доступны в едином премиальном интерфейсе.</p>
         </div>
         <div class="news-card" data-aos="fade-up" data-aos-delay="100">
             <span>20.04.2026</span>
             <h3>Technical Patch</h3>
-            <p>Улучшена синхронизация Voice Chat и обновлены чары Excellent Enchants до последней версии.</p>
+            <p>Улучшена стабильность голосового чата Plasmo Voice и обновлен список кастомных зачарований Excellent Enchants.</p>
         </div>
     </div>
 
@@ -152,67 +156,68 @@
             <div class="r-item" onclick="load('game', this)">ИГРА</div>
             <div class="r-item" onclick="load('chat', this)">ПОВЕДЕНИЕ</div>
             <div class="r-item" onclick="load('terr', this)">ТЕРРИТОРИИ</div>
-            <div class="r-item" onclick="load('acc', this)">АККАУНТЫ / МЕРЫ</div>
+            <div class="r-item" onclick="load('acc', this)">МЕРЫ И МОДЫ</div>
         </div>
         <div class="rules-body" id="rules-target">
             </div>
     </div>
 
-    <footer>
-        &copy; 2026 VOID+ SMP • BY YURIY BOBOKALO
-    </footer>
+    <footer>&copy; 2026 VOID+ SMP • AUTHORED BY YURIY BOBOKALO</footer>
 </div>
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 1000, once: true });
 
-    // ТОЧНОЕ КОПИРОВАНИЕ ПРАВИЛ ИЗ ТВОЕГО ТЕКСТА
+    // ПОЛНАЯ БАЗА ПРАВИЛ
     const RULES = {
         osn: {
             h: "Основные правила сервера",
             b: [
-                { i: "1.0", t: "Доступ к серверу разрешен <b>с 15 лет</b>" },
+                { i: "1.0", t: "Доступ к серверу разрешен <b>с 15 лет</b>." },
                 { i: "1.1", t: "Играя на сервере вы соглашаетесь со всеми правилами указанными здесь." },
                 { i: "1.2", t: "Незнание правил не освобождает вас от ответственности за нарушения." },
                 { i: "1.3", t: "Администрация в праве самостоятельно решать, какое наказание выдать." },
-                { i: "1.4", t: "Администрации запрещено банить, мутить, выдавать предупреждения или кикать игрока без веской причины." },
+                { i: "1.4", t: "Администрации запрещено банить, мутить или кикать игрока без веской причины." },
                 { i: "1.5", t: "Администрации запрещено злоупотреблять своими полномочиями." }
             ]
         },
         game: {
-            h: "Правила игры на сервере",
+            h: "Правила игры",
             b: [
-                { i: "2.1.1", t: "<b>Разрешены убийства (PvP)</b>. PvP допускается без обязательной причины. Запрещено систематическое убийство одного и того же игрока (2+ раз подряд). Наказание: 15 ар ➩ бан 6ч." },
-                { i: "2.1.2", t: "Разрешено забирать весь лут, <b>кроме брони и инструментов</b>. Отказ возврата: 14 ар + бан 6ч." },
-                { i: "2.3.1", t: "Запрещено гриферство, порча построек, воровство. Наказание: 10-15 ар ➩ бан 1 день." },
-                { i: "2.4.1", t: "Запрещено стороннее ПО (X-Ray, макросы, авто-тотем). Наказание: бан 12 дней. Повторно — пермач." },
-                { i: "2.4.2", t: "Запрещён дюп (кроме TNT, ковров, сыпучих блоков). Бан 7 дней." }
+                { i: "2.1.1", t: "<b>PvP разрешено</b> без обязательной причины. Запрещено систематическое убийство (2+ раза подряд) и вмешательство в чужое PvP без согласия. Наказание: 15 ар ➩ бан 6 часов." },
+                { i: "2.1.2", t: "Разрешено забирать весь лут, <b>кроме брони и инструментов</b>. Отказ возврата: 14 ар + бан 6 часов." },
+                { i: "2.2.1", t: "Запрещено выходить с сервера во время PvP. Наказание: 8 ар ➩ бан 6 часов." },
+                { i: "2.3.1", t: "Запрещено гриферство, воровство, убийство мобов на чужой территории. Наказание: 10-15 ар ➩ бан 1 день." },
+                { i: "2.4.2", t: "Запрещён дюп любых предметов, кроме TNT, ковров и сыпучих блоков. Бан 7 дней." },
+                { i: "2.5.2", t: "Запрещено создание ловушек, приводящих к гарантированной смерти без возможности выхода." }
             ]
         },
         chat: {
             h: "Правила поведения",
             b: [
                 { i: "3.1.2", t: "Запрещено личное оскорбление родственников игрока." },
-                { i: "3.2.1", t: "Запрещена дискриминация по нации, религии, расизм и негативный политический контекст." },
+                { i: "3.2.1", t: "Запрещена дискриминация (расизм, религия, политика)." },
                 { i: "3.5.1", t: "Кодовое слово: <b>фембой</b>." },
                 { i: "3.5.1", t: "Запрещено строительство нацистских символов и атрибутики." },
-                { i: "3.7.2", t: "Запрещена реклама сторонних проектов без разрешения." }
+                { i: "3.7.2", t: "Запрещена реклама сторонних проектов без разрешения." },
+                { i: "3.8.1", t: "Запрещено выдавать себя за администрацию." }
             ]
         },
         terr: {
             h: "Правила территорий",
             b: [
-                { i: "4.1", t: "Городу разрешено занимать территорию до <b>500 блоков</b>. Штраф 20 аров." },
-                { i: "4.3", t: "Запрещено проживание на чужой территории (радиус 100 блоков) без разрешения Главы. Наказание: снос + штраф 10 ар." }
+                { i: "4.1", t: "Каждому городу разрешено занимать территорию до <b>500 блоков</b> включительно. При нарушении штраф 20 аров." },
+                { i: "4.2", t: "Город/Клан/База имеют право закрыть вход на свою территорию, установив таблички на входе или вокруг зоны." },
+                { i: "4.3", t: "Запрещено строительство или проживание на чужой территории (радиус 100 блоков) без разрешения Главы. Наказание: снос постройки + штраф 10 ар." }
             ]
         },
         acc: {
-            h: "Аккаунты и Меры",
+            h: "Меры и запрещенные моды",
             b: [
-                { i: "5.1", t: "Запрещены мульти-аккаунты (кроме Discord — до 2). Бан обоих на 7 дней." },
-                { i: "MODS", t: "<b>ЗАПРЕЩЕНЫ:</b> ReplayMod, X-Ray, Baritone, FreeCam, Wurst, AutoFish, Tweakeroo, Auto-totem, Bridging mod." },
-                { i: "ARAS", t: "<b>АРЫ:</b> Глубокосланцевая руда (Шёлковое касание). Отказ от выплаты штрафа или долгий выход = бан до погашения." }
+                { i: "5.1", t: "Запрещено создание мульти-аккаунтов. Наказание: бан обоих на 7 дней." },
+                { i: "MODS", t: "<b>КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНЫ:</b> X-Ray, Baritone, FreeCam, Wurst, ChestESP, Auto-Totem, Tweakeroo, Bridging mod, Neat." },
+                { i: "ARAS", t: "<b>ОПЛАТА ШТРАФОВ:</b> Ары (глубокосланцевая алмазная руда, добытая Шёлковым касанием). Отказ от выплаты = бан до погашения." }
             ]
         }
     };
@@ -235,11 +240,19 @@
         setTimeout(() => { ip.innerText = "PLAY.VOIDPLUS.ME"; }, 2000);
     }
 
+    // ЖИВОЙ ФОН
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let pts = [];
-    function rs() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; pts = []; for(let i=0;i<120;i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5}); }
-    function dr() { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#fff"; pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y-=0.2;if(p.y<0)p.y=canvas.height;}); requestAnimationFrame(dr); }
+    function rs() { 
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
+        pts = []; for(let i=0;i<120;i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5}); 
+    }
+    function dr() { 
+        ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#fff"; 
+        pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y-=0.2;if(p.y<0)p.y=canvas.height;}); 
+        requestAnimationFrame(dr); 
+    }
     window.addEventListener('resize', rs); rs(); dr();
 </script>
 </body>
