@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Absolute Authority</title>
+    <title>Void+ | Official SMP</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;900&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,170 +11,146 @@
 
     <style>
         :root {
-            --bg: #030303;
+            --bg: #000000;
             --accent: #ffffff;
-            --text-main: #e0e0e0;
-            --text-dim: #666;
-            --glass: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
             --font-head: 'Unbounded', sans-serif;
             --font-main: 'Syne', sans-serif;
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; cursor: default; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
         body {
-            margin: 0; background: var(--bg); color: var(--text-main);
+            margin: 0; background: var(--bg); color: #fff;
             font-family: var(--font-main); overflow-x: hidden;
         }
 
-        /* --- ГЛУБОКИЙ ФОН --- */
-        #hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle at 50% 50%, transparent 0%, #000 100%);
-            z-index: 0; pointer-events: none;
-        }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 60px; position: relative; z-index: 10; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
 
-        /* --- NAVBAR --- */
+        /* --- NAV --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 40px 0;
-            z-index: 1000; transition: 0.5s;
+            position: fixed; top: 0; width: 100%; padding: 30px 0;
+            z-index: 1000; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
         }
-        .nav-blur { backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 20px 0; }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.8rem; letter-spacing: -2px; color: #fff; text-decoration: none; }
+        .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.8rem; color: #fff; text-decoration: none; letter-spacing: -1px; }
         .nav-links a { 
-            text-decoration: none; color: var(--text-dim); font-size: 0.8rem; font-weight: 700; 
-            margin-left: 40px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+            text-decoration: none; color: #666; font-size: 0.75rem; font-weight: 800; 
+            margin-left: 30px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
         }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+        .nav-links a:hover { color: #fff; }
 
-        /* --- HERO SECTION --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
-        .hero-tag { font-family: var(--font-head); font-size: 0.7rem; color: #fff; background: var(--glass); padding: 8px 15px; border: 1px solid var(--border); border-radius: 50px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 4px; }
-        .hero h1 { 
-            font-family: var(--font-head); font-size: clamp(3rem, 10vw, 8rem); 
-            margin: 0; font-weight: 900; line-height: 0.9; letter-spacing: -4px;
-        }
-        .hero p { max-width: 600px; font-size: 1.2rem; color: var(--text-dim); margin: 30px 0; line-height: 1.6; }
+        /* --- HERO --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-family: var(--font-head); font-size: clamp(4rem, 15vw, 10rem); margin: 0; font-weight: 900; letter-spacing: -5px; }
+        .hero-sub { color: #555; font-family: var(--font-head); letter-spacing: 10px; font-size: 0.9rem; margin-top: 10px; text-transform: uppercase; }
 
-        .btn-group { display: flex; gap: 20px; }
-        .main-btn {
-            background: #fff; color: #000; padding: 22px 50px; border-radius: 15px;
-            font-family: var(--font-head); font-weight: 900; text-decoration: none;
-            transition: 0.4s; font-size: 0.9rem;
+        .ip-card {
+            margin-top: 60px; background: var(--glass); border: 1px solid var(--border);
+            padding: 10px; border-radius: 20px; display: flex; align-items: center; cursor: pointer; transition: 0.4s;
         }
-        .main-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,255,255,0.3); }
+        .ip-card:hover { border-color: #fff; transform: translateY(-5px); }
+        .ip-val { padding: 15px 40px; font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; }
+        .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 12px; font-weight: 900; font-size: 0.8rem; }
 
-        /* --- BENTO NEWS --- */
-        .section-header { margin: 150px 0 60px; font-family: var(--font-head); }
-        .section-header h2 { font-size: 3rem; margin: 0; letter-spacing: -2px; }
-        .section-header span { color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 5px; }
+        /* --- LINKS BLOCK --- */
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; width: 100%; max-width: 1000px; }
+        .l-box { 
+            background: var(--glass); border: 1px solid var(--border); padding: 25px; 
+            border-radius: 20px; text-decoration: none; color: #fff; transition: 0.3s;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .l-box:hover { background: #fff; color: #000; }
+        .l-box i { font-size: 1.5rem; }
 
-        .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-        .big-news { 
-            background: var(--glass); border: 1px solid var(--border); border-radius: 40px; 
-            padding: 60px; position: relative; overflow: hidden;
-        }
-        .small-news { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; }
-
-        /* --- RULES INTERFACE --- */
-        .rules-ui {
-            background: var(--glass); border: 1px solid var(--border); border-radius: 50px;
-            display: grid; grid-template-columns: 350px 1fr; min-height: 700px; overflow: hidden;
-            backdrop-filter: blur(50px);
-        }
-        .rules-sidebar { border-right: 1px solid var(--border); padding: 40px; }
-        .rules-nav-item { 
-            padding: 20px; border-radius: 15px; cursor: pointer; color: var(--text-dim); 
-            font-weight: 700; transition: 0.3s; margin-bottom: 10px; font-family: var(--font-head); font-size: 0.7rem;
-        }
-        .rules-nav-item.active { background: #fff; color: #000; }
+        /* --- RULES SYSTEM --- */
+        .section-title { margin: 150px 0 50px; font-family: var(--font-head); font-size: 2.5rem; text-align: center; }
         
-        .rules-body { padding: 60px; height: 700px; overflow-y: auto; }
-        .rules-body h3 { font-family: var(--font-head); font-size: 2rem; margin-top: 0; }
-        .rule-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; transition: 0.3s; }
-        .rule-card:hover { border-color: #fff; }
-        .rule-num { font-family: 'JetBrains Mono'; color: #555; font-size: 0.8rem; margin-bottom: 10px; display: block; }
-
-        footer { padding: 100px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 150px; opacity: 0.3; }
-
-        /* Плавная прокрутка */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-
-        @media (max-width: 1000px) {
-            .news-grid, .rules-ui { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 4rem; }
+        .rules-ui {
+            background: var(--glass); border: 1px solid var(--border); border-radius: 40px;
+            display: grid; grid-template-columns: 320px 1fr; min-height: 800px; overflow: hidden;
         }
+        .rules-menu { border-right: 1px solid var(--border); padding: 40px; background: rgba(0,0,0,0.2); }
+        .r-nav { 
+            padding: 20px; border-radius: 15px; cursor: pointer; color: #444; 
+            font-weight: 800; transition: 0.3s; margin-bottom: 10px; font-size: 0.8rem;
+        }
+        .r-nav.active { background: #fff; color: #000; }
+        
+        .rules-content { padding: 60px; height: 800px; overflow-y: auto; line-height: 1.8; }
+        .rules-content h2 { font-family: var(--font-head); margin-top: 0; font-size: 2rem; }
+        .rule-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 20px; }
+        .rule-item b { color: #fff; }
+        .rule-item i { color: #555; display: block; margin-bottom: 10px; font-style: normal; font-family: 'JetBrains Mono'; font-size: 0.8rem; }
+
+        footer { padding: 100px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 100px; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; }
+
+        @media (max-width: 1000px) { .rules-ui { grid-template-columns: 1fr; } .rules-menu { display: flex; overflow-x: auto; padding: 20px; } .r-nav { white-space: nowrap; } }
     </style>
 </head>
 <body>
 
-<div class="overlay"></div>
-<canvas id="hero-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-<nav id="navbar">
+<nav>
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="#news">Updates</a>
-            <a href="#rules">Protocol</a>
-            <a href="https://t.me/VoidVanilaSMP">Telegram</a>
+            <a href="#rules">Rules</a>
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank">Discord</a>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank">Telegram</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
     <section class="hero">
-        <div class="hero-tag" data-aos="fade-down">V. 1.21.11 // PRIVATE ACCESS</div>
-        <h1 data-aos="fade-right">THE PURE<br>STATION.</h1>
-        <p data-aos="fade-right" data-aos-delay="100">Закрытый мир, где эстетика минимализма встречается с хардкорным ванильным выживанием. Ничего лишнего. Только ты и Пустота.</p>
-        <div class="btn-group" data-aos="fade-up" data-aos-delay="200">
-            <a href="javascript:copyIP()" class="main-btn" id="ip-btn">PLAY.VOIDPLUS.ME</a>
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="color:#fff; padding: 22px; text-decoration:none; font-weight:800;">VOICE MOD ↗</a>
+        <h1 data-aos="fade-up">VOID+</h1>
+        <div class="hero-sub" data-aos="fade-up" data-aos-delay="100">Premium SMP Experience</div>
+        
+        <div class="ip-card" onclick="copyIP()" data-aos="zoom-in" data-aos-delay="200">
+            <div class="ip-val" id="ip-text">PLAY.VOIDPLUS.ME</div>
+            <div class="ip-copy">COPY IP</div>
+        </div>
+
+        <div class="links-grid" data-aos="fade-up" data-aos-delay="300">
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank" class="l-box">
+                <i class="fab fa-discord"></i>
+                <span>Discord Server</span>
+            </a>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank" class="l-box">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram Channel</span>
+            </a>
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="l-box">
+                <i class="fas fa-microphone"></i>
+                <span>Voice Chat Mod</span>
+            </a>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="l-box">
+                <i class="fas fa-wand-sparkles"></i>
+                <span>Custom Enchants</span>
+            </a>
         </div>
     </section>
 
-    <div class="section-header" id="news" data-aos="fade-up">
-        <span>Latest Log</span>
-        <h2>НОВОСТИ</h2>
-    </div>
-
-    <div class="news-grid">
-        <div class="big-news" data-aos="fade-right">
-            <h3 style="font-family: var(--font-head); font-size: 2.5rem; margin: 0 0 20px;">Голосовая революция</h3>
-            <p style="color: var(--text-dim); font-size: 1.1rem; line-height: 1.6;">Мы внедрили полную поддержку Plasmo Voice. Теперь мир оживает. Общайтесь, создавайте союзы и слышьте каждый шепот в темноте. Это — новый уровень погружения.</p>
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="display:inline-block; margin-top:30px; color:#fff; font-weight:800; text-decoration:none; border-bottom: 2px solid #fff;">DOWNLOAD MOD</a>
+    <h2 class="section-title" id="rules">КОДЕКС ПРОЕКТА</h2>
+    
+    <div class="rules-ui" data-aos="fade-up">
+        <div class="rules-menu">
+            <div class="r-nav active" onclick="showRules('main', this)">ОСНОВНЫЕ</div>
+            <div class="r-nav" onclick="showRules('game', this)">ИГРОВОЙ ПРОЦЕСС</div>
+            <div class="r-nav" onclick="showRules('behavior', this)">ПОВЕДЕНИЕ</div>
+            <div class="r-nav" onclick="showRules('territory', this)">ТЕРРИТОРИИ</div>
+            <div class="r-nav" onclick="showRules('mods', this)">МОДЫ И АККАУНТЫ</div>
         </div>
-        <div class="small-news" data-aos="fade-left">
-            <h4 style="font-family: var(--font-head); margin: 0 0 15px;">50+ Enchantments</h4>
-            <p style="color: var(--text-dim); font-size: 0.9rem;">Обновлен список магических чар. Ищите их в самых глубоких данжах мира.</p>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" style="color:#fff; text-decoration:none; font-size:0.8rem; font-weight:800; letter-spacing:1px;">VIEW LIST →</a>
-        </div>
-    </div>
-
-    <div class="section-header" id="rules" data-aos="fade-up">
-        <span>Safety Protocol</span>
-        <h2>ПРАВИЛА</h2>
-    </div>
-
-    <div class="rules-ui" data-aos="zoom-in">
-        <div class="rules-sidebar">
-            <div class="rules-nav-item active" onclick="showRuleGroup('base', this)">ОСНОВНОЕ</div>
-            <div class="rules-nav-item" onclick="showRuleGroup('pvp', this)">PVP И ЛУТ</div>
-            <div class="rules-nav-item" onclick="showRuleGroup('grief', this)">ГРИФ И ЧИТЫ</div>
-            <div class="rules-nav-item" onclick="showRuleGroup('social', this)">ПОВЕДЕНИЕ</div>
-            <div class="rules-nav-item" onclick="showRuleGroup('territory', this)">ТЕРРИТОРИИ</div>
-        </div>
-        <div class="rules-body" id="rules-display">
+        <div class="rules-content" id="rules-target">
             </div>
     </div>
 
     <footer>
-        &copy; 2026 VOID+ STATION. DESIGNED BY YURIY BOBOKALO. ALL RIGHTS RESERVED.
+        &copy; 2026 VOID+ SMP • BY YURIY BOBOKALO
     </footer>
 </div>
 
@@ -182,117 +158,91 @@
 <script>
     AOS.init({ duration: 1000 });
 
-    // --- ДАННЫЕ ПРАВИЛ ---
-    const RULES = {
-        base: {
-            title: "Основные положения",
-            items: [
-                { num: "1.0", text: "Доступ к серверу разрешен с 15 лет." },
-                { num: "1.1", text: "Играя, вы принимаете кодекс Void+." },
-                { num: "1.2", text: "Кодовое слово: <b>фембой</b>." }
-            ]
+    const RULES_DB = {
+        main: {
+            title: "Основные правила",
+            html: `
+                <div class="rule-item"><i>1.0</i> Доступ к серверу разрешен <b>с 15 лет</b>.</div>
+                <div class="rule-item"><i>1.1</i> Играя на сервере вы соглашаетесь со всеми правилами указанными здесь.</div>
+                <div class="rule-item"><i>1.2</i> Незнание правил не освобождает вас от ответственности за нарушения.</div>
+                <div class="rule-item"><i>1.3</i> Администрация в праве самостоятельно решать, какое наказание выдать.</div>
+                <div class="rule-item"><i>1.4</i> Администрации запрещено банить/мутить без веской причины.</div>
+                <div class="rule-item"><i>3.5.1</i> Кодовое слово: <b>фембой</b>.</div>
+            `
         },
-        pvp: {
-            title: "Боевой протокол",
-            items: [
-                { num: "2.1.1", text: "PvP разрешено. Запрещен систематический килл (2+ раза за раз)." },
-                { num: "2.1.2", text: "Лут: Можно всё, кроме брони и инструментов." },
-                { num: "2.2.1", text: "Лив с PvP = Штраф в арах или бан." }
-            ]
+        game: {
+            title: "Правила игры",
+            html: `
+                <div class="rule-item"><i>2.1.1</i> <b>PvP:</b> Разрешено. Запрещены систематические убийства (2+ раза подряд) и вмешательство в чужое PvP без согласия. Наказание: 15 ар / бан 6ч.</div>
+                <div class="rule-item"><i>2.1.2</i> <b>Лут:</b> Разрешено забирать всё, кроме <b>брони и инструментов</b>. Отказ возврата: 14 ар + бан 6ч.</div>
+                <div class="rule-item"><i>2.2.1</i> Запрещено выходить с сервера во время PvP. Штраф: 8 ар.</div>
+                <div class="rule-item"><i>2.3.1</i> Запрещено гриферство, воровство и убийство мобов на чужой территории. Наказание: 10-15 ар / бан 1 день.</div>
+                <div class="rule-item"><i>2.4.2</i> Запрещён дюп любых предметов, кроме TNT, ковров и сыпучих блоков. Бан 7 дней.</div>
+                <div class="rule-item"><i>2.6.1</i> Запрещено использовать или выяснять сид мира.</div>
+            `
         },
-        grief: {
-            title: "Гриф и Модификации",
-            items: [
-                { num: "2.3.1", text: "Гриферство и воровство — бан до 1 дня + штраф." },
-                { num: "2.4.1", text: "Читы (X-Ray, AutoTotem) — бан 12 дней. Рецидив — Пермач." },
-                { num: "2.4.2", text: "Дюп разрешен только для TNT и ковров." }
-            ]
-        },
-        social: {
-            title: "Социальные нормы",
-            items: [
-                { num: "3.1.1", text: "Запрещены оскорбления родственников и расизм." },
-                { num: "3.6.2", text: "Токсичное поведение и провокации караются мутом." },
-                { num: "3.7.2", text: "Реклама сторонних проектов — вечный бан." }
-            ]
+        behavior: {
+            title: "Правила поведения",
+            html: `
+                <div class="rule-item"><i>3.1.2</i> Запрещено личное оскорбление родственников игрока.</div>
+                <div class="rule-item"><i>3.2.1</i> Запрещена дискриминация (расизм, религия, политика).</div>
+                <div class="rule-item"><i>3.5.1</i> Запрещено строительство нацистских символов и атрибутики.</div>
+                <div class="rule-item"><i>3.7.2</i> Запрещена реклама сторонних проектов без разрешения.</div>
+                <div class="rule-item"><i>3.8.1</i> Запрещено выдавать себя за администрацию.</div>
+            `
         },
         territory: {
-            title: "Зонирование",
-            items: [
-                { num: "4.1", text: "Лимит города — 500 блоков." },
-                { num: "4.3", text: "Стройка ближе 100 блоков от соседа без согласия запрещена." }
-            ]
+            title: "Территории",
+            html: `
+                <div class="rule-item"><i>4.1</i> Городу разрешено занимать территорию до <b>500 блоков</b>. Штраф 20 аров.</div>
+                <div class="rule-item"><i>4.2</i> Вы имеете право закрыть вход, установив четкие таблички.</div>
+                <div class="rule-item"><i>4.3</i> Стройка или проживание ближе 100 блоков от чужой базы без разрешения Главы — снос постройки.</div>
+            `
+        },
+        mods: {
+            title: "Моды и Аккаунты",
+            html: `
+                <div class="rule-item"><b>ЗАПРЕЩЕНО:</b> X-Ray, FreeCam, Baritone, AutoFish, Auto-Totem, ReplayMod, Tweakeroo, Wurst, ESP всех видов. Бан 12 дней. Повторно — навсегда.</div>
+                <div class="rule-item"><i>5.1</i> Мульти-аккаунты запрещены (кроме Discord — до 2 аккаунтов).</div>
+                <div class="rule-item"><b>ВАЛЮТА (АРЫ):</b> Глубокосланцевая алмазная руда (Шёлковое касание). Отказ от выплаты штрафа = бан.</div>
+            `
         }
     };
 
-    function showRuleGroup(key, el) {
-        document.querySelectorAll('.rules-nav-item').forEach(i => i.classList.remove('active'));
+    function showRules(key, el) {
+        document.querySelectorAll('.r-nav').forEach(n => n.classList.remove('active'));
         el.classList.add('active');
-        
-        const group = RULES[key];
-        let html = `<h3>${group.title}</h3>`;
-        group.items.forEach(item => {
-            html += `<div class="rule-card">
-                <span class="rule-num">${item.num}</span>
-                <p style="margin:0">${item.text}</p>
-            </div>`;
-        });
-        document.getElementById('rules-display').innerHTML = html;
+        const data = RULES_DB[key];
+        document.getElementById('rules-target').innerHTML = `<h2>${data.title}</h2>${data.html}`;
     }
 
-    // Инициализация первой группы
-    showRuleGroup('base', document.querySelector('.rules-nav-item'));
-
-    // --- ЖИВОЙ ФОН (ГЕОМЕТРИЯ) ---
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    for(let i=0; i<50; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 3,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3
-        });
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(255,255,255,0.1)";
-        particles.forEach(p => {
-            p.x += p.vx; p.y += p.vy;
-            if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-            if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-            ctx.fill();
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
+    // Load first group
+    showRules('main', document.querySelector('.r-nav'));
 
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        const btn = document.getElementById('ip-btn');
-        btn.innerText = "COPIED!";
-        setTimeout(() => { btn.innerText = "PLAY.VOIDPLUS.ME"; }, 2000);
+        const t = document.getElementById('ip-text');
+        t.innerText = "COPIED!";
+        setTimeout(() => { t.innerText = "PLAY.VOIDPLUS.ME"; }, 2000);
     }
 
-    // Скролл-эффект для навигации
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
-        if(window.scrollY > 50) nav.classList.add('nav-blur');
-        else nav.classList.remove('nav-blur');
-    });
+    // Background animation
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function init() {
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        stars = [];
+        for(let i=0; i<150; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2});
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "#fff";
+        stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y -= 0.2; if(s.y<0) s.y=canvas.height; });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', init);
+    init(); draw();
 </script>
 </body>
 </html>
