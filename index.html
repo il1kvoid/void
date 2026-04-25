@@ -43,9 +43,10 @@
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; font-size: 1.4rem; color: #fff; text-decoration: none; }
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             text-decoration: none; color: var(--gray); 
-            font-size: 0.75rem; font-weight: 700; margin-left: 40px; transition: 0.3s;
+            font-size: 0.7rem; font-weight: 700; transition: 0.3s;
         }
         .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
@@ -82,7 +83,7 @@
         }
         .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-        /* NEWS & DISCORD */
+        /* NEWS & TELEGRAM WIDGET */
         .grid-split { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         .news-card {
             background: var(--card-bg); border: 1px solid var(--border);
@@ -91,32 +92,33 @@
         .news-card:hover { border-color: #fff; }
         .news-card h2 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 15px 0; }
         
-        .discord-widget {
+        .side-widget {
             background: #0a0a0a; border: 1px solid #1a1a1a;
-            border-radius: 30px; padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;
+            border-radius: 30px; padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px;
         }
-        .discord-btn { 
-            margin-top: auto; background: #fff; color: #000; width: 100%; 
-            padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; 
+        .widget-btn { 
+            background: #fff; color: #000; width: 100%; 
+            padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 0.8rem;
+            transition: 0.3s;
         }
+        .widget-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px #fff; }
 
         /* FEATURES */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
         .feat-card {
             background: var(--card-bg); border: 1px solid var(--border);
-            padding: 40px; border-radius: 25px; transition: 0.4s;
+            padding: 40px; border-radius: 25px; transition: 0.4s; text-decoration: none; color: #fff;
         }
         .feat-card:hover { border-color: #fff; background: #fff; color: #000; transform: translateY(-10px); }
         .feat-card i { font-size: 2.5rem; margin-bottom: 25px; }
 
-        /* GALLERY */
+        /* ATMOSPHERE SLOTS */
         .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .img-placeholder { 
+        .img-slot { 
             height: 250px; background: #050505; border: 1px solid var(--border);
             border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            color: #222; font-weight: 900; transition: 0.3s;
+            color: #222; font-weight: 900;
         }
-        .img-placeholder:hover { border-color: #fff; color: #444; }
 
         footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 100px; opacity: 0.3; font-size: 0.7rem; }
 
@@ -135,9 +137,9 @@
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="#about">О СЕРВЕРЕ</a>
-            <a href="#features">МЕХАНИКИ</a>
-            <a href="https://discord.gg/kafGXsKnBD">DISCORD</a>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank">TELEGRAM</a>
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank">DISCORD</a>
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank">PLASMO VOICE</a>
         </div>
     </div>
 </nav>
@@ -145,7 +147,7 @@
 <div class="container">
     <section class="hero" data-aos="zoom-out">
         <h1>VOID+</h1>
-        <div class="version-tag">VERSION 1.21.11</div>
+        <div class="version-tag">ВЕРСИЯ 1.21.11</div>
         <div class="hero-sub">Vanilla+ with Friends</div>
         
         <div class="ip-module" onclick="copyIP()">
@@ -154,51 +156,54 @@
         </div>
     </section>
 
-    <div class="section-title" id="about">LATEST UPDATE</div>
+    <div class="section-title">LATEST UPDATE</div>
     <div class="grid-split">
         <div class="news-card" data-aos="fade-right">
-            <span style="font-weight: 800; font-size: 0.7rem; opacity: 0.5;">APRIL 25, 2026</span>
-            <h2>Эпоха Магии и Голоса</h2>
-            <p>Мы обновились до версии 1.21.11! Главное изменение этого сезона — полная интеграция Plasmo Voice и расширение системы зачарований. Теперь мир чувствуется еще более живым, а взаимодействие между игроками вышло на новый уровень.</p>
-            <p>Никаких топов и гонки за статистикой. Просто строй, общайся и выживай в свое удовольствие.</p>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" style="color: #fff; font-weight: 800; text-decoration: none; border-bottom: 1px solid #fff;">СПИСОК ЧАР →</a>
+            <span style="font-weight: 800; font-size: 0.7rem; color: var(--gray);">25 АПРЕЛЯ, 2026</span>
+            <h2>Эпоха Голоса</h2>
+            <p>Обновление до 1.21.11 принесло на сервер долгожданную стабильность и новые возможности для социального взаимодействия. Мы призываем всех установить актуальную версию <b>Plasmo Voice</b> для полноценной игры.</p>
+            <div style="margin-top: 25px; display: flex; gap: 20px;">
+                <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" style="color: #fff; font-weight: 800; text-decoration: none; border-bottom: 1px solid #fff;">СПИСОК ЧАР</a>
+                <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="color: var(--gray); font-weight: 800; text-decoration: none;">СКАЧАТЬ ВОЙС →</a>
+            </div>
         </div>
-        <div class="discord-widget" data-aos="fade-left">
-            <i class="fab fa-discord" style="font-size: 3rem; margin-bottom: 20px;"></i>
-            <h3>НАШ DISCORD</h3>
-            <p style="font-size: 0.8rem; color: var(--gray);">Место для общения вне игры, решения вопросов и публикации своих построек.</p>
-            <a href="https://discord.gg/kafGXsKnBD" class="discord-btn">ПРИСОЕДИНИТЬСЯ</a>
+        
+        <div class="side-widget" data-aos="fade-left">
+            <i class="fab fa-telegram" style="font-size: 3rem;"></i>
+            <h3 style="font-family: 'Orbitron';">TELEGRAM</h3>
+            <p style="font-size: 0.8rem; color: var(--gray);">Новости, важные опросы и анонсы ивентов в нашем канале.</p>
+            <a href="https://t.me/VoidVanilaSMP" class="widget-btn" target="_blank">ПОДПИСАТЬСЯ</a>
         </div>
     </div>
 
-    <div class="section-title" id="features">SERVER FEATURES</div>
+    <div class="section-title">MECHANICS</div>
     <div class="features-grid">
-        <div class="feat-card" data-aos="fade-up">
+        <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feat-card" data-aos="fade-up">
             <i class="fas fa-microphone"></i>
             <h3>Spatial Voice</h3>
-            <p>Общайся с друзьями прямо в игре. Направление и громкость звука зависят от твоего положения.</p>
-        </div>
+            <p>Общайся с друзьями прямо в игре. Голос зависит от твоего положения в мире. Нажми, чтобы скачать мод.</p>
+        </a>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
-            <i class="fas fa-book-sparkles"></i>
-            <h3>Vanilla+ Magic</h3>
-            <p>Более 50 новых чар, которые аккуратно дополняют ванильный геймплей, не ломая его баланс.</p>
+            <i class="fas fa-scroll"></i>
+            <h3>50+ Enchants</h3>
+            <p>Уникальные зачарования, которые расширяют ванильный геймплей. Найди их все в данжах.</p>
         </div>
         <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
-            <i class="fas fa-map"></i>
-            <h3>Live World Map</h3>
-            <p>Интерактивная карта в браузере. Смотри на свои постройки и владения друзей онлайн.</p>
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>World Map</h3>
+            <p>Следи за развитием сервера через интерактивную онлайн-карту (доступна в Discord).</p>
         </div>
     </div>
 
     <div class="section-title">ATMOSPHERE</div>
     <div class="gallery">
-        <div class="img-placeholder" data-aos="zoom-in">IMAGE 1</div>
-        <div class="img-placeholder" data-aos="zoom-in" data-aos-delay="100">IMAGE 2</div>
-        <div class="img-placeholder" data-aos="zoom-in" data-aos-delay="200">IMAGE 3</div>
+        <div class="img-slot" data-aos="zoom-in">SCREEN 1</div>
+        <div class="img-slot" data-aos="zoom-in" data-aos-delay="100">SCREEN 2</div>
+        <div class="img-slot" data-aos="zoom-in" data-aos-delay="200">SCREEN 3</div>
     </div>
 
     <footer>
-        &copy; 2026 VOID+ PROJECT • ЛАМПОВОЕ ВЫЖИВАНИЕ
+        &copy; 2026 VOID+ PROJECT • NOT AN OFFICIAL MINECRAFT PRODUCT.
     </footer>
 </div>
 
