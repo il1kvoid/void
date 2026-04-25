@@ -3,262 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Official Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <title>Void+ | Absolute Authority</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;900&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <style>
         :root {
-            --bg: #000000;
-            --text: #ffffff;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg: #030303;
             --accent: #ffffff;
+            --text-main: #e0e0e0;
+            --text-dim: #666;
+            --glass: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
+            --font-head: 'Unbounded', sans-serif;
+            --font-main: 'Syne', sans-serif;
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        * { box-sizing: border-box; scroll-behavior: smooth; cursor: default; }
         body {
-            margin: 0; background: var(--bg); color: var(--text);
-            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
+            margin: 0; background: var(--bg); color: var(--text-main);
+            font-family: var(--font-main); overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
-        .vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, #000 120%); pointer-events: none; z-index: 0; }
+        /* --- ГЛУБОКИЙ ФОН --- */
+        #hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle at 50% 50%, transparent 0%, #000 100%);
+            z-index: 0; pointer-events: none;
+        }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 60px; position: relative; z-index: 10; }
 
-        /* --- NAV --- */
+        /* --- NAVBAR --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 0;
-            backdrop-filter: blur(30px); border-bottom: 1px solid var(--glass-border); z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 40px 0;
+            z-index: 1000; transition: 0.5s;
         }
+        .nav-blur { backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 20px 0; }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 10px; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .nav-links a { text-decoration: none; color: #666; font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; margin-left: 30px; transition: 0.3s; }
-        .nav-links a:hover { color: #fff; }
-
-        /* --- HERO --- */
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-family: 'Orbitron'; font-size: clamp(4rem, 15vw, 10rem); margin: 0; letter-spacing: -5px; line-height: 0.8; }
-        .ip-box {
-            margin-top: 50px; background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 10px; border-radius: 100px; display: flex; align-items: center; cursor: pointer; transition: 0.4s;
+        .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.8rem; letter-spacing: -2px; color: #fff; text-decoration: none; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-dim); font-size: 0.8rem; font-weight: 700; 
+            margin-left: 40px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
         }
-        .ip-box:hover { border-color: #fff; transform: scale(1.02); }
-        .ip-box span { padding: 0 40px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 4px; }
-        .copy-btn { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        /* --- SECTION TITLES --- */
-        .section-title { font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 10px; margin: 100px 0 40px; color: #444; text-transform: uppercase; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        /* --- HERO SECTION --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+        .hero-tag { font-family: var(--font-head); font-size: 0.7rem; color: #fff; background: var(--glass); padding: 8px 15px; border: 1px solid var(--border); border-radius: 50px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 4px; }
+        .hero h1 { 
+            font-family: var(--font-head); font-size: clamp(3rem, 10vw, 8rem); 
+            margin: 0; font-weight: 900; line-height: 0.9; letter-spacing: -4px;
+        }
+        .hero p { max-width: 600px; font-size: 1.2rem; color: var(--text-dim); margin: 30px 0; line-height: 1.6; }
 
-        /* --- NEWS SYSTEM --- */
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .news-item { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; transition: 0.3s; }
-        .news-item:hover { border-color: #444; }
-        .news-date { font-size: 0.6rem; font-weight: 800; color: #555; margin-bottom: 10px; display: block; }
-        .news-item h3 { margin: 0 0 15px; font-family: 'Orbitron'; font-size: 1.2rem; }
-        .news-item p { font-size: 0.9rem; color: #888; line-height: 1.6; margin: 0; }
+        .btn-group { display: flex; gap: 20px; }
+        .main-btn {
+            background: #fff; color: #000; padding: 22px 50px; border-radius: 15px;
+            font-family: var(--font-head); font-weight: 900; text-decoration: none;
+            transition: 0.4s; font-size: 0.9rem;
+        }
+        .main-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,255,255,0.3); }
 
-        /* --- RULES SYSTEM (ACCORDION) --- */
-        .rules-container { display: flex; flex-direction: column; gap: 10px; }
-        .rule-group { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; }
-        .rule-header { padding: 20px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        .rule-header:hover { background: rgba(255,255,255,0.02); }
-        .rule-header h3 { margin: 0; font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 2px; }
-        .rule-content { padding: 0 30px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #888; font-size: 0.9rem; line-height: 1.8; }
-        .rule-group.active .rule-content { padding: 20px 30px; max-height: 2000px; border-top: 1px solid var(--glass-border); }
-        .rule-content b { color: #fff; }
-        .rule-content ul { padding-left: 20px; }
+        /* --- BENTO NEWS --- */
+        .section-header { margin: 150px 0 60px; font-family: var(--font-head); }
+        .section-header h2 { font-size: 3rem; margin: 0; letter-spacing: -2px; }
+        .section-header span { color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 5px; }
 
-        /* --- QUICK LINKS --- */
-        .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
-        .q-link { background: #fff; color: #000; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 0.8rem; transition: 0.3s; }
-        .q-link:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+        .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .big-news { 
+            background: var(--glass); border: 1px solid var(--border); border-radius: 40px; 
+            padding: 60px; position: relative; overflow: hidden;
+        }
+        .small-news { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; }
 
-        footer { padding: 100px 0 50px; text-align: center; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; }
+        /* --- RULES INTERFACE --- */
+        .rules-ui {
+            background: var(--glass); border: 1px solid var(--border); border-radius: 50px;
+            display: grid; grid-template-columns: 350px 1fr; min-height: 700px; overflow: hidden;
+            backdrop-filter: blur(50px);
+        }
+        .rules-sidebar { border-right: 1px solid var(--border); padding: 40px; }
+        .rules-nav-item { 
+            padding: 20px; border-radius: 15px; cursor: pointer; color: var(--text-dim); 
+            font-weight: 700; transition: 0.3s; margin-bottom: 10px; font-family: var(--font-head); font-size: 0.7rem;
+        }
+        .rules-nav-item.active { background: #fff; color: #000; }
+        
+        .rules-body { padding: 60px; height: 700px; overflow-y: auto; }
+        .rules-body h3 { font-family: var(--font-head); font-size: 2rem; margin-top: 0; }
+        .rule-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; transition: 0.3s; }
+        .rule-card:hover { border-color: #fff; }
+        .rule-num { font-family: 'JetBrains Mono'; color: #555; font-size: 0.8rem; margin-bottom: 10px; display: block; }
 
-        @media (max-width: 768px) {
-            .quick-links { grid-template-columns: 1fr; }
+        footer { padding: 100px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 150px; opacity: 0.3; }
+
+        /* Плавная прокрутка */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        @media (max-width: 1000px) {
+            .news-grid, .rules-ui { grid-template-columns: 1fr; }
             .hero h1 { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-<div class="vignette"></div>
+<div class="overlay"></div>
+<canvas id="hero-canvas"></canvas>
 
-<nav>
+<nav id="navbar">
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="#news">НОВОСТИ</a>
-            <a href="#rules">ПРАВИЛА</a>
-            <a href="https://t.me/VoidVanilaSMP" target="_blank">TG</a>
+            <a href="#news">Updates</a>
+            <a href="#rules">Protocol</a>
+            <a href="https://t.me/VoidVanilaSMP">Telegram</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <section class="hero" data-aos="zoom-in">
-        <h1>VOID+</h1>
-        <div class="ip-box" onclick="copyIP()">
-            <span id="ip-text">PLAY.VOIDPLUS.ME</span>
-            <div class="copy-btn">COPY IP</div>
-        </div>
-        <div class="quick-links">
-            <a href="https://t.me/VoidVanilaSMP" class="q-link">TELEGRAM</a>
-            <a href="https://modrinth.com/plugin/plasmo-voice" class="q-link">VOICE MOD</a>
-            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" class="q-link">ENCHANTS</a>
+    <section class="hero">
+        <div class="hero-tag" data-aos="fade-down">V. 1.21.11 // PRIVATE ACCESS</div>
+        <h1 data-aos="fade-right">THE PURE<br>STATION.</h1>
+        <p data-aos="fade-right" data-aos-delay="100">Закрытый мир, где эстетика минимализма встречается с хардкорным ванильным выживанием. Ничего лишнего. Только ты и Пустота.</p>
+        <div class="btn-group" data-aos="fade-up" data-aos-delay="200">
+            <a href="javascript:copyIP()" class="main-btn" id="ip-btn">PLAY.VOIDPLUS.ME</a>
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="color:#fff; padding: 22px; text-decoration:none; font-weight:800;">VOICE MOD ↗</a>
         </div>
     </section>
 
-    <div class="section-title" id="news">Последние события</div>
-    <div class="news-grid" id="news-container">
-        </div>
+    <div class="section-header" id="news" data-aos="fade-up">
+        <span>Latest Log</span>
+        <h2>НОВОСТИ</h2>
+    </div>
 
-    <div class="section-title" id="rules">Кодекс Сервера</div>
-    <div class="rules-container" id="rules-container">
+    <div class="news-grid">
+        <div class="big-news" data-aos="fade-right">
+            <h3 style="font-family: var(--font-head); font-size: 2.5rem; margin: 0 0 20px;">Голосовая революция</h3>
+            <p style="color: var(--text-dim); font-size: 1.1rem; line-height: 1.6;">Мы внедрили полную поддержку Plasmo Voice. Теперь мир оживает. Общайтесь, создавайте союзы и слышьте каждый шепот в темноте. Это — новый уровень погружения.</p>
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="display:inline-block; margin-top:30px; color:#fff; font-weight:800; text-decoration:none; border-bottom: 2px solid #fff;">DOWNLOAD MOD</a>
         </div>
+        <div class="small-news" data-aos="fade-left">
+            <h4 style="font-family: var(--font-head); margin: 0 0 15px;">50+ Enchantments</h4>
+            <p style="color: var(--text-dim); font-size: 0.9rem;">Обновлен список магических чар. Ищите их в самых глубоких данжах мира.</p>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" style="color:#fff; text-decoration:none; font-size:0.8rem; font-weight:800; letter-spacing:1px;">VIEW LIST →</a>
+        </div>
+    </div>
+
+    <div class="section-header" id="rules" data-aos="fade-up">
+        <span>Safety Protocol</span>
+        <h2>ПРАВИЛА</h2>
+    </div>
+
+    <div class="rules-ui" data-aos="zoom-in">
+        <div class="rules-sidebar">
+            <div class="rules-nav-item active" onclick="showRuleGroup('base', this)">ОСНОВНОЕ</div>
+            <div class="rules-nav-item" onclick="showRuleGroup('pvp', this)">PVP И ЛУТ</div>
+            <div class="rules-nav-item" onclick="showRuleGroup('grief', this)">ГРИФ И ЧИТЫ</div>
+            <div class="rules-nav-item" onclick="showRuleGroup('social', this)">ПОВЕДЕНИЕ</div>
+            <div class="rules-nav-item" onclick="showRuleGroup('territory', this)">ТЕРРИТОРИИ</div>
+        </div>
+        <div class="rules-body" id="rules-display">
+            </div>
+    </div>
 
     <footer>
-        &copy; 2026 VOID+ • PROJECT BY YURIY BOBOKALO
+        &copy; 2026 VOID+ STATION. DESIGNED BY YURIY BOBOKALO. ALL RIGHTS RESERVED.
     </footer>
 </div>
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ duration: 1000 });
 
-    // ==========================================
-    // ДАННЫЕ ДЛЯ ОБНОВЛЕНИЯ (РЕДАКТИРУЙ ТУТ)
-    // ==========================================
-    
-    const NEWS_DATA = [
-        {
-            date: "25 АПРЕЛЯ, 2026",
-            title: "Запуск портала",
-            text: "Сегодня мы официально запустили веб-интерфейс Void+. Теперь все правила и обновления доступны в одном месте."
+    // --- ДАННЫЕ ПРАВИЛ ---
+    const RULES = {
+        base: {
+            title: "Основные положения",
+            items: [
+                { num: "1.0", text: "Доступ к серверу разрешен с 15 лет." },
+                { num: "1.1", text: "Играя, вы принимаете кодекс Void+." },
+                { num: "1.2", text: "Кодовое слово: <b>фембой</b>." }
+            ]
         },
-        {
-            date: "20 АПРЕЛЯ, 2026",
-            title: "Стабильность 1.21.11",
-            text: "Сервер полностью переведен на версию 1.21.11. Оптимизирована нагрузка и обновлены плагины на чары."
+        pvp: {
+            title: "Боевой протокол",
+            items: [
+                { num: "2.1.1", text: "PvP разрешено. Запрещен систематический килл (2+ раза за раз)." },
+                { num: "2.1.2", text: "Лут: Можно всё, кроме брони и инструментов." },
+                { num: "2.2.1", text: "Лив с PvP = Штраф в арах или бан." }
+            ]
+        },
+        grief: {
+            title: "Гриф и Модификации",
+            items: [
+                { num: "2.3.1", text: "Гриферство и воровство — бан до 1 дня + штраф." },
+                { num: "2.4.1", text: "Читы (X-Ray, AutoTotem) — бан 12 дней. Рецидив — Пермач." },
+                { num: "2.4.2", text: "Дюп разрешен только для TNT и ковров." }
+            ]
+        },
+        social: {
+            title: "Социальные нормы",
+            items: [
+                { num: "3.1.1", text: "Запрещены оскорбления родственников и расизм." },
+                { num: "3.6.2", text: "Токсичное поведение и провокации караются мутом." },
+                { num: "3.7.2", text: "Реклама сторонних проектов — вечный бан." }
+            ]
+        },
+        territory: {
+            title: "Зонирование",
+            items: [
+                { num: "4.1", text: "Лимит города — 500 блоков." },
+                { num: "4.3", text: "Стройка ближе 100 блоков от соседа без согласия запрещена." }
+            ]
         }
-    ];
+    };
 
-    const RULES_DATA = [
-        {
-            title: "1. Основные правила",
-            content: `
-                ✧ Доступ к серверу разрешен <b>с 15 лет</b>.<br>
-                ✧ Играя, вы соглашаетесь со всеми правилами.<br>
-                ✧ Незнание не освобождает от ответственности.<br>
-                ✧ Кодовое слово для администрации: <b>фембой</b>.
-            `
-        },
-        {
-            title: "2. Игровой процесс (PvP & Лут)",
-            content: `
-                ✧ <b>PvP:</b> Разрешено, но без токсичности. Запрещено систематическое убийство одного и того же игрока (2+ раз).<br>
-                ✧ <b>Лут:</b> Можно забирать всё, <b>кроме брони и инструментов</b>. Нарушение — возврат ресурсов или бан.<br>
-                ✧ <b>Выход при PvP:</b> Запрещен. Наказание — штраф или бан.
-            `
-        },
-        {
-            title: "3. Гриферство и Читы",
-            content: `
-                ✧ <b>Гриф:</b> Строго запрещен. Порча построек, воровство, использование чужих ферм без разрешения — бан.<br>
-                ✧ <b>Читы:</b> X-Ray, макросы, авто-тотем и прочее — <b>бан 12 дней</b>. Повторно — навсегда.<br>
-                ✧ <b>Дюп:</b> Разрешен только для TNT, ковров и песка.
-            `
-        },
-        {
-            title: "4. Поведение и Чат",
-            content: `
-                ✧ Запрещены оскорбления родственников, дискриминация по нации или религии.<br>
-                ✧ Запрещена реклама сторонних проектов и спам.<br>
-                ✧ Запрещено выдавать себя за администрацию.
-            `
-        },
-        {
-            title: "5. Территории",
-            content: `
-                ✧ Лимит города — <b>500 блоков</b>. <br>
-                ✧ Вы имеете право закрыть вход на свою территорию табличками.<br>
-                ✧ Стройка в радиусе 100 блоков от чужой базы без разрешения — снос постройки.
-            `
-        }
-    ];
-
-    // ==========================================
-    // ЛОГИКА ОТОБРАЖЕНИЯ
-    // ==========================================
-
-    // Загрузка новостей
-    const newsContainer = document.getElementById('news-container');
-    NEWS_DATA.forEach(item => {
-        newsContainer.innerHTML += `
-            <div class="news-item">
-                <span class="news-date">${item.date}</span>
-                <h3>${item.title}</h3>
-                <p>${item.text}</p>
-            </div>
-        `;
-    });
-
-    // Загрузка правил
-    const rulesContainer = document.getElementById('rules-container');
-    RULES_DATA.forEach((item, index) => {
-        rulesContainer.innerHTML += `
-            <div class="rule-group">
-                <div class="rule-header" onclick="toggleRule(this)">
-                    <h3>${item.title}</h3>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="rule-content">
-                    ${item.content}
-                </div>
-            </div>
-        `;
-    });
-
-    function toggleRule(element) {
-        element.parentElement.classList.toggle('active');
-        const icon = element.querySelector('i');
-        icon.classList.toggle('fa-plus');
-        icon.classList.toggle('fa-minus');
+    function showRuleGroup(key, el) {
+        document.querySelectorAll('.rules-nav-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+        
+        const group = RULES[key];
+        let html = `<h3>${group.title}</h3>`;
+        group.items.forEach(item => {
+            html += `<div class="rule-card">
+                <span class="rule-num">${item.num}</span>
+                <p style="margin:0">${item.text}</p>
+            </div>`;
+        });
+        document.getElementById('rules-display').innerHTML = html;
     }
 
-    // Фоновые звезды
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
+    // Инициализация первой группы
+    showRuleGroup('base', document.querySelector('.rules-nav-item'));
 
-    function initStars() {
+    // --- ЖИВОЙ ФОН (ГЕОМЕТРИЯ) ---
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        stars = [];
-        for(let i=0; i<100; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                o: Math.random()
-            });
-        }
     }
-    window.addEventListener('resize', initStars);
-    initStars();
+    window.addEventListener('resize', resize);
+    resize();
+
+    for(let i=0; i<50; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 3,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3
+        });
+    }
 
     function animate() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        ctx.fillStyle = "#fff";
-        stars.forEach(s => {
-            ctx.globalAlpha = s.o;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(255,255,255,0.1)";
+        particles.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
             ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
             ctx.fill();
         });
         requestAnimationFrame(animate);
@@ -267,10 +282,17 @@
 
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        const btn = document.querySelector('.copy-btn');
+        const btn = document.getElementById('ip-btn');
         btn.innerText = "COPIED!";
-        setTimeout(() => { btn.innerText = "COPY IP"; }, 2000);
+        setTimeout(() => { btn.innerText = "PLAY.VOIDPLUS.ME"; }, 2000);
     }
+
+    // Скролл-эффект для навигации
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if(window.scrollY > 50) nav.classList.add('nav-blur');
+        else nav.classList.remove('nav-blur');
+    });
 </script>
 </body>
 </html>
