@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Absolute Vanilla Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;700;900&display=swap" rel="stylesheet">
+    <title>Void+ | Official Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --bg: #000000;
             --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --accent: #ffffff;
-            --glass: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
@@ -22,209 +22,254 @@
             font-family: 'Montserrat', sans-serif; overflow-x: hidden;
         }
 
-        /* --- LIGHT OVERLAY (ЭФФЕКТ ФОНАРИКА) --- */
-        .cursor-light {
-            position: fixed; width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none; z-index: 1; transform: translate(-50%, -50%);
-        }
+        /* --- BACKGROUND --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        .vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, #000 120%); pointer-events: none; z-index: 0; }
 
-        /* --- BACKGROUND LAYER --- */
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px; position: relative; z-index: 2; }
-
-        /* --- NAVIGATION --- */
+        /* --- NAV --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 30px 0;
-            backdrop-filter: blur(40px); border-bottom: 1px solid var(--glass-border); z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 25px 0;
+            backdrop-filter: blur(30px); border-bottom: 1px solid var(--glass-border); z-index: 1000;
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 12px; font-size: 1.6rem; color: #fff; text-decoration: none; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .nav-links a { 
-            text-decoration: none; color: rgba(255,255,255,0.4); 
-            font-size: 0.75rem; font-weight: 900; letter-spacing: 3px; margin-left: 40px; transition: 0.4s;
-        }
-        .nav-links a:hover { color: #fff; transform: translateY(-2px); }
+        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 10px; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; margin-left: 30px; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
 
         /* --- HERO --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 {
-            font-family: 'Orbitron'; font-size: clamp(5rem, 20vw, 12.5rem);
-            margin: 0; letter-spacing: -10px; line-height: 0.8;
-            background: linear-gradient(180deg, #fff 40%, #222 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-family: 'Orbitron'; font-size: clamp(4rem, 15vw, 10rem); margin: 0; letter-spacing: -5px; line-height: 0.8; }
+        .ip-box {
+            margin-top: 50px; background: var(--glass); border: 1px solid var(--glass-border);
+            padding: 10px; border-radius: 100px; display: flex; align-items: center; cursor: pointer; transition: 0.4s;
         }
-        .v-badge { background: #fff; color: #000; padding: 8px 25px; border-radius: 2px; font-family: 'Orbitron'; font-weight: 900; font-size: 1rem; margin-top: 40px; letter-spacing: 5px; }
+        .ip-box:hover { border-color: #fff; transform: scale(1.02); }
+        .ip-box span { padding: 0 40px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 4px; }
+        .copy-btn { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
 
-        .ip-wrap {
-            margin-top: 70px; background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 10px; border-radius: 15px; display: flex; align-items: center; transition: 0.5s;
+        /* --- SECTION TITLES --- */
+        .section-title { font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 10px; margin: 100px 0 40px; color: #444; text-transform: uppercase; border-bottom: 1px solid #111; padding-bottom: 10px; }
+
+        /* --- NEWS SYSTEM --- */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .news-item { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; transition: 0.3s; }
+        .news-item:hover { border-color: #444; }
+        .news-date { font-size: 0.6rem; font-weight: 800; color: #555; margin-bottom: 10px; display: block; }
+        .news-item h3 { margin: 0 0 15px; font-family: 'Orbitron'; font-size: 1.2rem; }
+        .news-item p { font-size: 0.9rem; color: #888; line-height: 1.6; margin: 0; }
+
+        /* --- RULES SYSTEM (ACCORDION) --- */
+        .rules-container { display: flex; flex-direction: column; gap: 10px; }
+        .rule-group { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 15px; overflow: hidden; }
+        .rule-header { padding: 20px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .rule-header:hover { background: rgba(255,255,255,0.02); }
+        .rule-header h3 { margin: 0; font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 2px; }
+        .rule-content { padding: 0 30px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; color: #888; font-size: 0.9rem; line-height: 1.8; }
+        .rule-group.active .rule-content { padding: 20px 30px; max-height: 2000px; border-top: 1px solid var(--glass-border); }
+        .rule-content b { color: #fff; }
+        .rule-content ul { padding-left: 20px; }
+
+        /* --- QUICK LINKS --- */
+        .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .q-link { background: #fff; color: #000; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 0.8rem; transition: 0.3s; }
+        .q-link:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+
+        footer { padding: 100px 0 50px; text-align: center; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; }
+
+        @media (max-width: 768px) {
+            .quick-links { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
         }
-        .ip-wrap:hover { border-color: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.1); }
-        .ip-address { padding: 15px 50px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 6px; font-size: 1.1rem; }
-        .copy-btn { background: #fff; color: #000; padding: 15px 40px; border-radius: 10px; font-weight: 900; transition: 0.3s; }
-        .copy-btn:hover { transform: scale(0.95); }
-
-        /* --- MAIN CONTENT --- */
-        .section-header { font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 15px; margin: 180px 0 60px; text-align: center; color: #333; text-transform: uppercase; }
-
-        .bento-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px; }
-        
-        .premium-box {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 40px; padding: 60px; backdrop-filter: blur(20px);
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .premium-box:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-10px); }
-
-        .feature-card {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 30px; padding: 40px; text-decoration: none; color: #fff;
-            display: flex; flex-direction: column; gap: 15px; transition: 0.4s;
-        }
-        .feature-card:hover { background: #fff; color: #000; }
-        .feature-card i { font-size: 2.2rem; margin-bottom: 10px; }
-
-        /* --- ENCHANTS SPECIAL LINK --- */
-        .enchant-banner {
-            background: linear-gradient(90deg, #0a0a0a, #111); border: 1px solid #1a1a1a;
-            border-radius: 30px; padding: 40px; display: flex; justify-content: space-between; align-items: center;
-            margin-top: 30px; transition: 0.4s; text-decoration: none; color: #fff;
-        }
-        .enchant-banner:hover { border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.05); }
-
-        footer { padding: 120px 0 60px; text-align: center; border-top: 1px solid var(--glass-border); opacity: 0.2; letter-spacing: 8px; font-size: 0.7rem; }
-
-        @media (max-width: 1100px) { .bento-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div class="cursor-light" id="light"></div>
 <canvas id="bg-canvas"></canvas>
+<div class="vignette"></div>
 
 <nav>
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="https://t.me/VoidVanilaSMP" target="_blank">TELEGRAM</a>
-            <a href="https://discord.gg/kafGXsKnBD" target="_blank">DISCORD</a>
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank">VOICE MOD</a>
+            <a href="#news">НОВОСТИ</a>
+            <a href="#rules">ПРАВИЛА</a>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank">TG</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <section class="hero" data-aos="zoom-out">
+    <section class="hero" data-aos="zoom-in">
         <h1>VOID+</h1>
-        <div class="v-badge">ВЕРСИЯ 1.21.11</div>
-        <div class="ip-wrap" onclick="copyIP()">
-            <div class="ip-address" id="ip-text">PLAY.VOIDPLUS.ME</div>
-            <div class="copy-btn">COPY</div>
+        <div class="ip-box" onclick="copyIP()">
+            <span id="ip-text">PLAY.VOIDPLUS.ME</span>
+            <div class="copy-btn">COPY IP</div>
+        </div>
+        <div class="quick-links">
+            <a href="https://t.me/VoidVanilaSMP" class="q-link">TELEGRAM</a>
+            <a href="https://modrinth.com/plugin/plasmo-voice" class="q-link">VOICE MOD</a>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" class="q-link">ENCHANTS</a>
         </div>
     </section>
 
-    <div class="section-header">Information Hub</div>
-    <div class="bento-grid">
-        <div class="premium-box" data-aos="fade-right">
-            <h2 style="font-family: 'Orbitron'; font-size: 3.5rem; margin: 0 0 30px; letter-spacing: -2px;">Чистая Эстетика.</h2>
-            <p style="font-size: 1.2rem; line-height: 1.8; color: #888; font-weight: 300;">VOID+ — это манифест ванильного выживания. Здесь нет места лишним плагинам, магазинам или статистике. Только вы, ваши друзья и бесконечная Пустота, которую вы наполняете смыслом.</p>
-            <div style="margin-top: 40px; display: flex; gap: 20px;">
-                <a href="https://t.me/VoidVanilaSMP" target="_blank" style="background: #fff; color: #000; padding: 18px 45px; border-radius: 12px; font-weight: 900; text-decoration: none;">ПРИСОЕДИНИТЬСЯ</a>
-            </div>
+    <div class="section-title" id="news">Последние события</div>
+    <div class="news-grid" id="news-container">
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feature-card" data-aos="fade-left">
-                <i class="fas fa-microphone-alt"></i>
-                <h3 style="font-family: 'Orbitron'; margin: 0;">Plasmo Voice</h3>
-                <p style="opacity: 0.5; font-size: 0.9rem; margin: 0;">Необходим для игры. Нажмите, чтобы перейти к установке.</p>
-            </a>
-            <div class="feature-card" data-aos="fade-left" data-aos-delay="100">
-                <i class="fas fa-earth-europe"></i>
-                <h3 style="font-family: 'Orbitron'; margin: 0;">Live Map</h3>
-                <p style="opacity: 0.5; font-size: 0.9rem; margin: 0;">Интерактивный взгляд на мир (доступно в Discord).</p>
-            </div>
+    <div class="section-title" id="rules">Кодекс Сервера</div>
+    <div class="rules-container" id="rules-container">
         </div>
-    </div>
-
-    <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="enchant-banner" data-aos="fade-up">
-        <div style="display: flex; align-items: center; gap: 25px;">
-            <i class="fas fa-scroll" style="font-size: 2rem;"></i>
-            <div>
-                <h3 style="font-family: 'Orbitron'; margin: 0;">Excellent Enchants</h3>
-                <p style="margin: 5px 0 0; color: #666; font-size: 0.8rem;">Полный список из 50+ уникальных зачарований сервера</p>
-            </div>
-        </div>
-        <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
-    </a>
-
-    <div class="section-header">Atmosphere</div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-        <div style="height: 350px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px; display: flex; align-items: center; justify-content: center; color: #111; font-weight: 900;" data-aos="zoom-in">CINEMATIC 1</div>
-        <div style="height: 350px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px; display: flex; align-items: center; justify-content: center; color: #111; font-weight: 900;" data-aos="zoom-in" data-aos-delay="100">CINEMATIC 2</div>
-        <div style="height: 350px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px; display: flex; align-items: center; justify-content: center; color: #111; font-weight: 900;" data-aos="zoom-in" data-aos-delay="200">CINEMATIC 3</div>
-    </div>
 
     <footer>
-        &copy; MMXXVI VOID+ PROJECT • THE ULTIMATE VANILLA
+        &copy; 2026 VOID+ • PROJECT BY YURIY BOBOKALO
     </footer>
 </div>
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 1200, once: true });
+    AOS.init({ duration: 1000, once: true });
 
-    // --- CURSOR LIGHT LOGIC ---
-    const light = document.getElementById('light');
-    document.addEventListener('mousemove', e => {
-        light.style.left = e.clientX + 'px';
-        light.style.top = e.clientY + 'px';
+    // ==========================================
+    // ДАННЫЕ ДЛЯ ОБНОВЛЕНИЯ (РЕДАКТИРУЙ ТУТ)
+    // ==========================================
+    
+    const NEWS_DATA = [
+        {
+            date: "25 АПРЕЛЯ, 2026",
+            title: "Запуск портала",
+            text: "Сегодня мы официально запустили веб-интерфейс Void+. Теперь все правила и обновления доступны в одном месте."
+        },
+        {
+            date: "20 АПРЕЛЯ, 2026",
+            title: "Стабильность 1.21.11",
+            text: "Сервер полностью переведен на версию 1.21.11. Оптимизирована нагрузка и обновлены плагины на чары."
+        }
+    ];
+
+    const RULES_DATA = [
+        {
+            title: "1. Основные правила",
+            content: `
+                ✧ Доступ к серверу разрешен <b>с 15 лет</b>.<br>
+                ✧ Играя, вы соглашаетесь со всеми правилами.<br>
+                ✧ Незнание не освобождает от ответственности.<br>
+                ✧ Кодовое слово для администрации: <b>фембой</b>.
+            `
+        },
+        {
+            title: "2. Игровой процесс (PvP & Лут)",
+            content: `
+                ✧ <b>PvP:</b> Разрешено, но без токсичности. Запрещено систематическое убийство одного и того же игрока (2+ раз).<br>
+                ✧ <b>Лут:</b> Можно забирать всё, <b>кроме брони и инструментов</b>. Нарушение — возврат ресурсов или бан.<br>
+                ✧ <b>Выход при PvP:</b> Запрещен. Наказание — штраф или бан.
+            `
+        },
+        {
+            title: "3. Гриферство и Читы",
+            content: `
+                ✧ <b>Гриф:</b> Строго запрещен. Порча построек, воровство, использование чужих ферм без разрешения — бан.<br>
+                ✧ <b>Читы:</b> X-Ray, макросы, авто-тотем и прочее — <b>бан 12 дней</b>. Повторно — навсегда.<br>
+                ✧ <b>Дюп:</b> Разрешен только для TNT, ковров и песка.
+            `
+        },
+        {
+            title: "4. Поведение и Чат",
+            content: `
+                ✧ Запрещены оскорбления родственников, дискриминация по нации или религии.<br>
+                ✧ Запрещена реклама сторонних проектов и спам.<br>
+                ✧ Запрещено выдавать себя за администрацию.
+            `
+        },
+        {
+            title: "5. Территории",
+            content: `
+                ✧ Лимит города — <b>500 блоков</b>. <br>
+                ✧ Вы имеете право закрыть вход на свою территорию табличками.<br>
+                ✧ Стройка в радиусе 100 блоков от чужой базы без разрешения — снос постройки.
+            `
+        }
+    ];
+
+    // ==========================================
+    // ЛОГИКА ОТОБРАЖЕНИЯ
+    // ==========================================
+
+    // Загрузка новостей
+    const newsContainer = document.getElementById('news-container');
+    NEWS_DATA.forEach(item => {
+        newsContainer.innerHTML += `
+            <div class="news-item">
+                <span class="news-date">${item.date}</span>
+                <h3>${item.title}</h3>
+                <p>${item.text}</p>
+            </div>
+        `;
     });
 
-    // --- GENERATIVE BACKGROUND (STARS) ---
+    // Загрузка правил
+    const rulesContainer = document.getElementById('rules-container');
+    RULES_DATA.forEach((item, index) => {
+        rulesContainer.innerHTML += `
+            <div class="rule-group">
+                <div class="rule-header" onclick="toggleRule(this)">
+                    <h3>${item.title}</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="rule-content">
+                    ${item.content}
+                </div>
+            </div>
+        `;
+    });
+
+    function toggleRule(element) {
+        element.parentElement.classList.toggle('active');
+        const icon = element.querySelector('i');
+        icon.classList.toggle('fa-plus');
+        icon.classList.toggle('fa-minus');
+    }
+
+    // Фоновые звезды
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
 
-    function resize() {
+    function initStars() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        stars = [];
+        for(let i=0; i<100; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                o: Math.random()
+            });
+        }
     }
-    window.addEventListener('resize', resize);
-    resize();
+    window.addEventListener('resize', initStars);
+    initStars();
 
-    for(let i=0; i<150; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2,
-            opacity: Math.random() * 0.5,
-            v: Math.random() * 0.2
-        });
-    }
-
-    function draw() {
+    function animate() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "#fff";
         stars.forEach(s => {
-            ctx.fillStyle = `rgba(255,255,255,${s.opacity})`;
+            ctx.globalAlpha = s.o;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
             ctx.fill();
-            s.y -= s.v;
-            if(s.y < 0) s.y = canvas.height;
         });
-        requestAnimationFrame(draw);
+        requestAnimationFrame(animate);
     }
-    draw();
+    animate();
 
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        const ip = document.getElementById('ip-text');
-        const original = ip.innerText;
-        ip.innerText = "COPIED TO CLIPBOARD";
-        setTimeout(() => { ip.innerText = original; }, 2000);
+        const btn = document.querySelector('.copy-btn');
+        btn.innerText = "COPIED!";
+        setTimeout(() => { btn.innerText = "COPY IP"; }, 2000);
     }
 </script>
 </body>
