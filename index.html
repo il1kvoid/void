@@ -3,135 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void+ | Monochrome SMP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <title>Void+ | Luxury SMP Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
         :root {
             --bg: #000000;
             --text: #ffffff;
-            --card-bg: #0a0a0a;
-            --border: #1a1a1a;
-            --border-hover: #ffffff;
-            --gray: #888888;
+            --accent: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        * { box-sizing: border-box; scroll-behavior: smooth; cursor: none; } /* Скрываем дефолтный курсор */
         body {
             margin: 0; background: var(--bg); color: var(--text);
             font-family: 'Montserrat', sans-serif; overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
-        #particles-js {
-            position: fixed; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at center, #050505 0%, #000 100%);
-        }
-        .vignette {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
-            pointer-events: none; z-index: 0;
+        /* --- LUXURY CUSTOM CURSOR --- */
+        #cursor {
+            position: fixed; width: 20px; height: 20px; border: 1px solid #fff;
+            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s; z-index: 9999;
         }
 
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+        /* --- GENERATIVE BACKGROUND --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
 
-        /* --- NAVBAR --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px; position: relative; z-index: 2; }
+
+        /* --- PREMIER NAVBAR --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 0;
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000;
+            position: fixed; top: 0; width: 100%; padding: 30px 0;
+            backdrop-filter: blur(30px); border-bottom: 1px solid var(--border); z-index: 1000;
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; font-size: 1.4rem; color: #fff; text-decoration: none; }
-        .nav-links { display: flex; gap: 30px; }
+        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 10px; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .nav-links { display: flex; gap: 40px; }
         .nav-links a { 
-            text-decoration: none; color: var(--gray); 
-            font-size: 0.7rem; font-weight: 700; transition: 0.3s;
+            text-decoration: none; color: rgba(255,255,255,0.5); 
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; transition: 0.4s;
         }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 15px #fff; }
 
-        /* --- HERO --- */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-        }
+        /* --- HERO SECTION --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero h1 {
-            font-family: 'Orbitron'; font-size: clamp(4rem, 18vw, 10rem);
-            margin: 0; line-height: 0.9; letter-spacing: -5px;
-            background: linear-gradient(180deg, #fff 0%, #333 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron'; font-size: clamp(5rem, 20vw, 12rem);
+            margin: 0; line-height: 0.8; letter-spacing: -8px;
+            animation: breathe 5s infinite alternate;
         }
-        .version-tag { 
-            background: #fff; color: #000; padding: 5px 15px; border-radius: 5px; 
-            font-family: 'Orbitron'; font-weight: 900; font-size: 0.8rem; margin-top: 20px;
+        @keyframes breathe {
+            from { filter: drop-shadow(0 0 0px #fff); opacity: 0.8; }
+            to { filter: drop-shadow(0 0 30px rgba(255,255,255,0.4)); opacity: 1; }
         }
-        .hero-sub { color: #fff; letter-spacing: 12px; text-transform: uppercase; margin: 30px 0 50px; font-weight: 200; opacity: 0.6; }
+        .v-tag { background: #fff; color: #000; padding: 7px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; margin-top: 30px; }
 
         .ip-module {
-            background: #000; border: 1px solid var(--border);
-            padding: 5px; border-radius: 100px; display: flex; align-items: center;
-            transition: 0.4s; cursor: pointer;
+            margin-top: 60px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            padding: 8px; border-radius: 100px; display: flex; align-items: center; transition: 0.5s;
         }
-        .ip-module:hover { border-color: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.1); transform: scale(1.02); }
-        .ip-address { padding: 15px 40px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 3px; }
-        .ip-copy-btn { background: #fff; color: #000; padding: 15px 25px; border-radius: 100px; font-weight: 900; }
+        .ip-module:hover { border-color: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.1); transform: translateY(-5px); }
+        .ip-address { padding: 15px 50px; font-family: 'Orbitron'; font-weight: 700; letter-spacing: 5px; }
+        .ip-btn { background: #fff; color: #000; padding: 15px 35px; border-radius: 100px; font-weight: 900; }
 
-        /* --- SECTIONS --- */
-        .section-title {
-            font-family: 'Orbitron'; font-size: 1.1rem; letter-spacing: 8px;
-            margin: 120px 0 50px; display: flex; align-items: center; gap: 25px; color: var(--gray);
-        }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        /* --- CONTENT BLOCKS --- */
+        .section-title { font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 12px; margin: 150px 0 60px; color: #444; text-align: center; }
 
-        /* NEWS & TELEGRAM WIDGET */
-        .grid-split { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-        .news-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 30px; padding: 50px; transition: 0.3s;
+        .premium-card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 40px;
+            padding: 60px; backdrop-filter: blur(20px); transition: 0.5s;
         }
-        .news-card:hover { border-color: #fff; }
-        .news-card h2 { font-family: 'Orbitron'; font-size: 2.2rem; margin: 15px 0; }
+        .premium-card:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
+
+        .grid-main { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
         
-        .side-widget {
-            background: #0a0a0a; border: 1px solid #1a1a1a;
-            border-radius: 30px; padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px;
+        .feature-box {
+            padding: 40px; border-radius: 30px; border: 1px solid var(--border); transition: 0.5s;
+            text-decoration: none; color: #fff; display: block;
         }
-        .widget-btn { 
-            background: #fff; color: #000; width: 100%; 
-            padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .widget-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px #fff; }
+        .feature-box:hover { background: #fff; color: #000; transform: scale(1.03); }
+        .feature-box i { font-size: 2.5rem; margin-bottom: 20px; }
 
-        /* FEATURES */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-        .feat-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 40px; border-radius: 25px; transition: 0.4s; text-decoration: none; color: #fff;
-        }
-        .feat-card:hover { border-color: #fff; background: #fff; color: #000; transform: translateY(-10px); }
-        .feat-card i { font-size: 2.5rem; margin-bottom: 25px; }
+        /* --- FOOTER --- */
+        footer { padding: 100px 0 50px; text-align: center; opacity: 0.2; font-size: 0.7rem; letter-spacing: 5px; border-top: 1px solid var(--border); }
 
-        /* ATMOSPHERE SLOTS */
-        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .img-slot { 
-            height: 250px; background: #050505; border: 1px solid var(--border);
-            border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            color: #222; font-weight: 900;
-        }
-
-        footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 100px; opacity: 0.3; font-size: 0.7rem; }
-
-        @media (max-width: 1000px) {
-            .grid-split { grid-template-columns: 1fr; }
-            .gallery { grid-template-columns: 1fr 1fr; }
-        }
+        @media (max-width: 1100px) { .grid-main { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
-<div class="vignette"></div>
+<div id="cursor"></div>
+<canvas id="bg-canvas"></canvas>
 
 <nav>
     <div class="container nav-flex">
@@ -139,97 +104,123 @@
         <div class="nav-links">
             <a href="https://t.me/VoidVanilaSMP" target="_blank">TELEGRAM</a>
             <a href="https://discord.gg/kafGXsKnBD" target="_blank">DISCORD</a>
-            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank">PLASMO VOICE</a>
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank">VOICE MOD</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <section class="hero" data-aos="zoom-out">
+    <section class="hero" data-aos="zoom-in">
         <h1>VOID+</h1>
-        <div class="version-tag">ВЕРСИЯ 1.21.11</div>
-        <div class="hero-sub">Vanilla+ with Friends</div>
-        
+        <div class="v-tag">1.21.11</div>
         <div class="ip-module" onclick="copyIP()">
-            <div class="ip-address">PLAY.VOIDPLUS.ME</div>
-            <div class="ip-copy-btn">COPY</div>
+            <div class="ip-address" id="ip-text">PLAY.VOIDPLUS.ME</div>
+            <div class="ip-btn">COPY</div>
         </div>
     </section>
 
-    <div class="section-title">LATEST UPDATE</div>
-    <div class="grid-split">
-        <div class="news-card" data-aos="fade-right">
-            <span style="font-weight: 800; font-size: 0.7rem; color: var(--gray);">25 АПРЕЛЯ, 2026</span>
-            <h2>Эпоха Голоса</h2>
-            <p>Обновление до 1.21.11 принесло на сервер долгожданную стабильность и новые возможности для социального взаимодействия. Мы призываем всех установить актуальную версию <b>Plasmo Voice</b> для полноценной игры.</p>
-            <div style="margin-top: 25px; display: flex; gap: 20px;">
-                <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" style="color: #fff; font-weight: 800; text-decoration: none; border-bottom: 1px solid #fff;">СПИСОК ЧАР</a>
-                <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" style="color: var(--gray); font-weight: 800; text-decoration: none;">СКАЧАТЬ ВОЙС →</a>
-            </div>
+    <div class="section-title">THE NEWS</div>
+    <div class="grid-main">
+        <div class="premium-card" data-aos="fade-right">
+            <span style="opacity: 0.4; font-size: 0.8rem; font-weight: 800;">SEASON UPDATE // 2026</span>
+            <h2 style="font-family: 'Orbitron'; font-size: 3rem; margin: 20px 0;">Pure Experience</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #aaa;">Добро пожаловать в мир, где нет ничего лишнего. Мы создали пространство для тех, кто ценит классический дух игры с современными технологиями общения. Версия 1.21.11 — это стабильность, красота и сообщество друзей.</p>
+            <a href="https://t.me/VoidVanilaSMP" target="_blank" style="display:inline-block; margin-top:30px; border:1px solid #fff; color:#fff; padding:15px 40px; text-decoration:none; border-radius:100px; font-weight:700;">КАНАЛ В ТЕЛЕГРАМ</a>
         </div>
         
-        <div class="side-widget" data-aos="fade-left">
-            <i class="fab fa-telegram" style="font-size: 3rem;"></i>
-            <h3 style="font-family: 'Orbitron';">TELEGRAM</h3>
-            <p style="font-size: 0.8rem; color: var(--gray);">Новости, важные опросы и анонсы ивентов в нашем канале.</p>
-            <a href="https://t.me/VoidVanilaSMP" class="widget-btn" target="_blank">ПОДПИСАТЬСЯ</a>
+        <div class="side-links" style="display: flex; flex-direction: column; gap: 20px;">
+            <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feature-box" data-aos="fade-left">
+                <i class="fas fa-microphone-alt"></i>
+                <h3>PLASMO VOICE</h3>
+                <p style="opacity: 0.6; font-size: 0.9rem;">Общайся голосом. Это основа нашего геймплея.</p>
+            </a>
+            <div class="feature-box" data-aos="fade-left" data-aos-delay="100">
+                <i class="fas fa-scroll"></i>
+                <h3>CUSTOM ENCHANTS</h3>
+                <p style="opacity: 0.6; font-size: 0.9rem;">50+ новых механик без потери ванильного духа.</p>
+            </div>
         </div>
-    </div>
-
-    <div class="section-title">MECHANICS</div>
-    <div class="features-grid">
-        <a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="feat-card" data-aos="fade-up">
-            <i class="fas fa-microphone"></i>
-            <h3>Spatial Voice</h3>
-            <p>Общайся с друзьями прямо в игре. Голос зависит от твоего положения в мире. Нажми, чтобы скачать мод.</p>
-        </a>
-        <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
-            <i class="fas fa-scroll"></i>
-            <h3>50+ Enchants</h3>
-            <p>Уникальные зачарования, которые расширяют ванильный геймплей. Найди их все в данжах.</p>
-        </div>
-        <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
-            <i class="fas fa-map-marked-alt"></i>
-            <h3>World Map</h3>
-            <p>Следи за развитием сервера через интерактивную онлайн-карту (доступна в Discord).</p>
-        </div>
-    </div>
-
-    <div class="section-title">ATMOSPHERE</div>
-    <div class="gallery">
-        <div class="img-slot" data-aos="zoom-in">SCREEN 1</div>
-        <div class="img-slot" data-aos="zoom-in" data-aos-delay="100">SCREEN 2</div>
-        <div class="img-slot" data-aos="zoom-in" data-aos-delay="200">SCREEN 3</div>
     </div>
 
     <footer>
-        &copy; 2026 VOID+ PROJECT • NOT AN OFFICIAL MINECRAFT PRODUCT.
+        &copy; MMXXVI VOID+ PROJECT • THE ART OF VANILLA
     </footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 1000, once: true });
 
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#ffffff" },
-            "opacity": { "value": 0.1 },
-            "size": { "value": 2, "random": true },
-            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.05, "width": 1 },
-            "move": { "enable": true, "speed": 1 }
-        }
+    // --- LUXURY CURSOR LOGIC ---
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
     });
+
+    document.querySelectorAll('a, .ip-module, .feature-box').forEach(el => {
+        el.addEventListener('mouseenter', () => { 
+            cursor.style.width = '60px'; cursor.style.height = '60px'; 
+            cursor.style.background = 'rgba(255,255,255,0.1)';
+        });
+        el.addEventListener('mouseleave', () => { 
+            cursor.style.width = '20px'; cursor.style.height = '20px';
+            cursor.style.background = 'transparent';
+        });
+    });
+
+    // --- GENERATIVE MESH BACKGROUND ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for(let i=0; i<100; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+
+        nodes.forEach((n, i) => {
+            n.x += n.vx; n.y += n.vy;
+            if(n.x < 0 || n.x > canvas.width) n.vx *= -1;
+            if(n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+            for(let j=i+1; j<nodes.length; j++) {
+                let dist = Math.hypot(n.x - nodes[j].x, n.y - nodes[j].y);
+                if(dist < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(n.x, n.y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
 
     function copyIP() {
         navigator.clipboard.writeText("PLAY.VOIDPLUS.ME");
-        const btn = document.querySelector('.ip-copy-btn');
-        btn.innerText = "COPIED!";
-        setTimeout(() => { btn.innerText = "COPY"; }, 2000);
+        const ipText = document.getElementById('ip-text');
+        const oldText = ipText.innerText;
+        ipText.innerText = "COPIED TO CLIPBOARD";
+        setTimeout(() => { ipText.innerText = oldText; }, 2000);
     }
 </script>
-
 </body>
 </html>
