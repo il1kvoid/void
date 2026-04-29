@@ -52,7 +52,7 @@
         .ip-val { padding: 0 35px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
         .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
 
-        /* --- QUICK LINKS (3 БЛОКА) --- */
+        /* --- QUICK LINKS --- */
         .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; width: 100%; max-width: 900px; }
         .l-box { background: var(--glass); border: 1px solid var(--border); padding: 22px; border-radius: 18px; text-decoration: none; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 15px; font-size: 0.8rem; font-weight: 700; backdrop-filter: blur(5px); justify-content: center; }
         .l-box:hover { background: #fff; color: #000; }
@@ -62,30 +62,26 @@
         .section-header::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
 
         /* --- PLUGINS LIST --- */
-        .plugins-container { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; backdrop-filter: blur(10px); }
+        .plugins-container { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; backdrop-filter: blur(10px); margin-bottom: 50px; }
         .plugins-list { display: grid; grid-template-columns: 1fr; gap: 20px; }
         .plugin-card { 
             background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 25px; 
             padding: 30px; display: flex; justify-content: space-between; align-items: center; transition: 0.4s;
         }
-        .plugin-card:hover { border-color: #fff; background: rgba(255,255,255,0.04); }
+        .plugin-card:hover { border-color: #fff; background: rgba(255,255,255,0.04); transform: translateX(10px); }
         .p-info h3 { margin: 0 0 10px; font-family: var(--font-head); font-size: 1.1rem; color: #fff; }
-        .p-info p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; max-width: 700px; }
-        .p-info code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono'; color: #bbb; }
+        .p-info p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; max-width: 750px; }
+        .p-info code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono'; color: #ddd; }
         
         .btn-plugin { 
             text-decoration: none; color: #000; background: #fff; padding: 12px 25px; 
             border-radius: 12px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; 
             letter-spacing: 1px; transition: 0.3s; white-space: nowrap;
         }
-        .btn-plugin:hover { transform: scale(1.05); }
+        .btn-plugin:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
 
-        /* --- NEWS & RULES --- */
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .news-card { background: var(--glass); border: 1px solid var(--border); border-radius: 25px; padding: 35px; backdrop-filter: blur(5px); }
-        .news-card span { font-family: 'JetBrains Mono'; color: #444; font-size: 0.7rem; display: block; margin-bottom: 10px; }
-
-        .rules-ui { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; display: grid; grid-template-columns: 300px 1fr; min-height: 600px; overflow: hidden; margin-bottom: 100px; backdrop-filter: blur(10px); }
+        /* --- RULES --- */
+        .rules-ui { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; display: grid; grid-template-columns: 300px 1fr; min-height: 500px; overflow: hidden; margin-bottom: 100px; backdrop-filter: blur(10px); }
         .rules-sidebar { border-right: 1px solid var(--border); padding: 30px; background: rgba(0,0,0,0.3); }
         .r-item { padding: 18px; border-radius: 12px; cursor: pointer; color: #444; font-weight: 800; transition: 0.3s; margin-bottom: 8px; font-size: 0.75rem; font-family: var(--font-head); }
         .r-item.active { background: #fff; color: #000; }
@@ -110,9 +106,9 @@
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="#updates">Новости</a>
             <a href="#plugins">Плагины</a>
             <a href="#protocol">Правила</a>
+            <a href="https://discord.gg/kafGXsKnBD" target="_blank">Discord</a>
         </div>
     </div>
 </nav>
@@ -134,60 +130,81 @@
         </div>
     </section>
 
-    <!-- НОВОСТИ -->
-    <div class="section-header" id="updates" data-aos="fade-right">НОВОСТИ</div>
-    <div class="news-grid">
-        <div class="news-card" data-aos="fade-up">
-            <span>29.04.2026</span>
-            <h3>Обновление списка плагинов</h3>
-            <p>Добавлены <b>GSit</b> и <b>CoreProtect</b>. Также восстановлен удобный список новых зачарований.</p>
-        </div>
-        <div class="news-card" data-aos="fade-up" data-aos-delay="100">
-            <span>24.04.2026</span>
-            <h3>План запуска</h3>
-            <p>Ожидайте запуск в ближайшие выходные. Все технические работы почти завершены.</p>
-        </div>
-    </div>
-
     <!-- БЛОК ПЛАГИНОВ -->
-    <div class="section-header" id="plugins" data-aos="fade-right">ПЛАГИНЫ</div>
+    <div class="section-header" id="plugins" data-aos="fade-right">БИБЛИОТЕКА ПЛАГИНОВ</div>
     <div class="plugins-container" data-aos="fade-up">
         <div class="plugins-list">
             
-            <!-- Plasmo Voice -->
+            <!-- 1. Plasmo Voice -->
             <div class="plugin-card">
                 <div class="p-info">
                     <h3>Plasmo Voice Chat</h3>
-                    <p>Стандартный и прекрасный Войс Чат для общения в игре. Имеет приятный оверлей и отличный функционал.</p>
+                    <p>Стандартный и прекрасный Войс Чат для общения в игре. Хороший функционал и приятный оверлей.</p>
                 </div>
                 <a href="https://plasmovoice.com/" target="_blank" class="btn-plugin">Скачать</a>
             </div>
 
-            <!-- Enchantment List (ВОССТАНОВЛЕН) -->
+            <!-- 2. Enchantment List -->
             <div class="plugin-card">
                 <div class="p-info">
                     <h3>Enchantment List</h3>
-                    <p>Полный список из 50+ уникальных кастомных зачарований, доступных на сервере.</p>
+                    <p>Список из 50+ уникальных кастомных зачарований, которые сделают ваше выживание интереснее.</p>
                 </div>
-                <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn-plugin">Открыть</a>
+                <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn-plugin">Список</a>
             </div>
 
-            <!-- GSit -->
+            <!-- 3. GSit -->
             <div class="plugin-card">
                 <div class="p-info">
                     <h3>GSit</h3>
-                    <p>Позволяет персонажу сидеть, лежать, ползать и крутиться. Используйте команды: <code>/sit</code>, <code>/lay</code>, <code>/crawl</code>, <code>/spin</code>.</p>
+                    <p>Позволяет сидеть, лежать и ползать. Команды: <code>/sit</code>, <code>/lay</code>, <code>/crawl</code>, <code>/spin</code>.</p>
                 </div>
                 <a href="https://modrinth.com/plugin/gsit" target="_blank" class="btn-plugin">Скачать</a>
             </div>
 
-            <!-- CoreProtect -->
+            <!-- 4. CoreProtect -->
             <div class="plugin-card">
                 <div class="p-info">
                     <h3>CoreProtect</h3>
-                    <p>Защита от гриферства. Команда <code>/co i</code> позволяет проверить, кто брал вещи или менял блоки. При гриферстве пишите админам — ресурсы будут возвращены.</p>
+                    <p>Защита от гриферства. Команда <code>/co i</code> позволяет проверить историю блоков и сундуков.</p>
                 </div>
                 <a href="https://docs.coreprotect.net/commands/" target="_blank" class="btn-plugin">Инфо</a>
+            </div>
+
+            <!-- 5. PatPat -->
+            <div class="plugin-card">
+                <div class="p-info">
+                    <h3>PatPat</h3>
+                    <p>Милое дополнение: при нажатии <code>Shift + ПКМ</code> на игрока вы сможете его погладить. (Рекомендуем добавить мод в сборку!)</p>
+                </div>
+                <a href="https://modrinth.com/plugin/patpat" target="_blank" class="btn-plugin">Скачать</a>
+            </div>
+
+            <!-- 6. LightMaker -->
+            <div class="plugin-card">
+                <div class="p-info">
+                    <h3>LightMaker</h3>
+                    <p>Кастомный крафт блока света: <b>Редстоун факел + Пустая бутылочка</b>. Уровни света 0-15 меняются на камнерезе.</p>
+                </div>
+                <a href="https://modrinth.com/plugin/lightmaker/gallery" target="_blank" class="btn-plugin">Галерея</a>
+            </div>
+
+            <!-- 7. InvisibleFrames -->
+            <div class="plugin-card">
+                <div class="p-info">
+                    <h3>InvisibleFrames</h3>
+                    <p>Идеально для декора. Нажмите <code>Shift + ПКМ</code> на рамку, чтобы сделать её невидимой.</p>
+                </div>
+                <a href="https://modrinth.com/resourcepack/invisible-item-frames" target="_blank" class="btn-plugin">Скачать</a>
+            </div>
+
+            <!-- 8. SkinRestorer -->
+            <div class="plugin-card">
+                <div class="p-info">
+                    <h3>SkinRestorer</h3>
+                    <p>Смена скина прямо в игре. <code>/skin [Ник]</code> — установить, <code>/skin clear</code> — убрать скин.</p>
+                </div>
+                <a href="https://skinsrestorer.net/docs" target="_blank" class="btn-plugin">Документация</a>
             </div>
 
         </div>
@@ -199,7 +216,7 @@
         <div class="rules-sidebar">
             <div class="r-item active" onclick="load('osn', this)">ОСНОВНЫЕ</div>
             <div class="r-item" onclick="load('game', this)">ИГРА</div>
-            <div class="r-item" onclick="load('chat', this)">ПОВЕДЕНИЕ</div>
+            <div class="r-item" onclick="load('chat', this)">ОБЩЕНИЕ</div>
         </div>
         <div class="rules-body" id="rules-target"></div>
     </div>
@@ -212,9 +229,9 @@
     AOS.init({ duration: 1000, once: true });
 
     const RULES = {
-        osn: { h: "Основные правила", b: ["Доступ с 15 лет.", "Играя, вы принимаете все условия."] },
-        game: { h: "Игровой процесс", b: ["PvP разрешено.", "Гриферство запрещено — за это следует бан."] },
-        chat: { h: "Общение", b: ["Уважайте других игроков.", "Кодовое слово: фембой"] }
+        osn: { h: "Основные правила", b: ["Доступ с 15 лет.", "Играя, вы принимаете все условия сервера."] },
+        game: { h: "Игровой процесс", b: ["PvP разрешено по обоюдному согласию.", "Гриферство строго запрещено."] },
+        chat: { h: "Общение", b: ["Будьте вежливы.", "Кодовое слово для заявки: фембой"] }
     };
 
     function load(k, el) {
