@@ -31,7 +31,6 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 10; }
 
-        /* --- NAV --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; padding: 25px 0;
             z-index: 1000; backdrop-filter: blur(25px); border-bottom: 1px solid var(--border);
@@ -42,7 +41,6 @@
         .nav-links a { text-decoration: none; color: #666; font-size: 0.7rem; font-weight: 800; margin-left: 25px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
         .nav-links a:hover { color: #fff; }
 
-        /* --- HERO --- */
         .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 12vw, 9rem); margin: 0; font-weight: 900; letter-spacing: -4px; line-height: 1; }
         .hero-sub { color: #444; font-family: var(--font-head); letter-spacing: 8px; font-size: 0.8rem; margin-top: 20px; text-transform: uppercase; }
@@ -52,49 +50,38 @@
         .ip-val { padding: 0 35px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
         .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
 
-        /* --- QUICK LINKS --- */
         .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; width: 100%; max-width: 900px; }
         .l-box { background: var(--glass); border: 1px solid var(--border); padding: 22px; border-radius: 18px; text-decoration: none; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 15px; font-size: 0.8rem; font-weight: 700; backdrop-filter: blur(5px); justify-content: center; }
         .l-box:hover { background: #fff; color: #000; }
 
-        /* --- SECTIONS --- */
         .section-header { margin: 100px 0 40px; font-family: var(--font-head); font-size: 1.8rem; letter-spacing: -1px; display: flex; align-items: center; gap: 20px; }
         .section-header::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
 
-        /* --- PLUGINS LIST --- */
-        .plugins-container { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; backdrop-filter: blur(10px); margin-bottom: 50px; }
-        .plugins-list { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        /* --- PLUGINS --- */
+        .plugins-container { background: var(--glass); border: 1px solid var(--border); border-radius: 40px; padding: 40px; backdrop-filter: blur(10px); }
         .plugin-card { 
             background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 25px; 
-            padding: 30px; display: flex; justify-content: space-between; align-items: center; transition: 0.4s;
+            padding: 30px; display: flex; justify-content: space-between; align-items: center; transition: 0.4s; margin-bottom: 20px;
         }
         .plugin-card:hover { border-color: #fff; background: rgba(255,255,255,0.04); transform: translateX(10px); }
         .p-info h3 { margin: 0 0 10px; font-family: var(--font-head); font-size: 1.1rem; color: #fff; }
         .p-info p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; max-width: 750px; }
         .p-info code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono'; color: #ddd; }
-        
-        .btn-plugin { 
-            text-decoration: none; color: #000; background: #fff; padding: 12px 25px; 
-            border-radius: 12px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; 
-            letter-spacing: 1px; transition: 0.3s; white-space: nowrap;
-        }
-        .btn-plugin:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .btn-plugin { text-decoration: none; color: #000; background: #fff; padding: 12px 25px; border-radius: 12px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; white-space: nowrap; }
+        .btn-plugin:hover { transform: scale(1.05); }
 
-        /* --- RULES --- */
-        .rules-ui { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; display: grid; grid-template-columns: 300px 1fr; min-height: 500px; overflow: hidden; margin-bottom: 100px; backdrop-filter: blur(10px); }
+        /* --- RULES UI --- */
+        .rules-ui { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; display: grid; grid-template-columns: 300px 1fr; min-height: 800px; overflow: hidden; margin-bottom: 100px; backdrop-filter: blur(10px); }
         .rules-sidebar { border-right: 1px solid var(--border); padding: 30px; background: rgba(0,0,0,0.3); }
         .r-item { padding: 18px; border-radius: 12px; cursor: pointer; color: #444; font-weight: 800; transition: 0.3s; margin-bottom: 8px; font-size: 0.75rem; font-family: var(--font-head); }
         .r-item.active { background: #fff; color: #000; }
-        .rules-body { padding: 50px; overflow-y: auto; }
-        .rule-block { background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 15px; padding: 25px; margin-bottom: 15px; color: #ccc; }
+        .rules-body { padding: 50px; height: 800px; overflow-y: auto; }
+        .rule-block { background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 15px; padding: 25px; margin-bottom: 15px; line-height: 1.7; color: #ccc; }
+        .rule-block i { font-family: 'JetBrains Mono'; color: #555; font-size: 0.7rem; display: block; margin-bottom: 8px; font-style: normal; }
 
         footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
 
-        @media (max-width: 900px) { 
-            .rules-ui { grid-template-columns: 1fr; } 
-            .links-grid { grid-template-columns: 1fr; }
-            .plugin-card { flex-direction: column; align-items: flex-start; gap: 20px; }
-        }
+        @media (max-width: 900px) { .rules-ui { grid-template-columns: 1fr; } .rules-sidebar { display: flex; overflow-x: auto; padding: 15px; } .links-grid { grid-template-columns: 1fr; } .plugin-card { flex-direction: column; align-items: flex-start; gap: 20px; } }
     </style>
 </head>
 <body>
@@ -126,97 +113,57 @@
         <div class="links-grid" data-aos="fade-up" data-aos-delay="300">
             <a href="https://discord.gg/kafGXsKnBD" target="_blank" class="l-box"><i class="fab fa-discord"></i> Discord</a>
             <a href="https://t.me/VoidVanilaSMP" target="_blank" class="l-box"><i class="fab fa-telegram"></i> Telegram</a>
-            <a href="#plugins" class="l-box"><i class="fas fa-layer-group"></i> Plugins</a>
+            <a href="#plugins" class="l-box"><i class="fas fa-plug"></i> Plugins</a>
         </div>
     </section>
 
-    <!-- БЛОК ПЛАГИНОВ -->
+    <!-- ПЛАГИНЫ -->
     <div class="section-header" id="plugins" data-aos="fade-right">БИБЛИОТЕКА ПЛАГИНОВ</div>
     <div class="plugins-container" data-aos="fade-up">
-        <div class="plugins-list">
-            
-            <!-- 1. Plasmo Voice -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>Plasmo Voice Chat</h3>
-                    <p>Стандартный и прекрасный Войс Чат для общения в игре. Хороший функционал и приятный оверлей.</p>
-                </div>
-                <a href="https://plasmovoice.com/" target="_blank" class="btn-plugin">Скачать</a>
-            </div>
-
-            <!-- 2. Enchantment List -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>Enchantment List</h3>
-                    <p>Список из 50+ уникальных кастомных зачарований, которые сделают ваше выживание интереснее.</p>
-                </div>
-                <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn-plugin">Список</a>
-            </div>
-
-            <!-- 3. GSit -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>GSit</h3>
-                    <p>Позволяет сидеть, лежать и ползать. Команды: <code>/sit</code>, <code>/lay</code>, <code>/crawl</code>, <code>/spin</code>.</p>
-                </div>
-                <a href="https://modrinth.com/plugin/gsit" target="_blank" class="btn-plugin">Скачать</a>
-            </div>
-
-            <!-- 4. CoreProtect -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>CoreProtect</h3>
-                    <p>Защита от гриферства. Команда <code>/co i</code> позволяет проверить историю блоков и сундуков.</p>
-                </div>
-                <a href="https://docs.coreprotect.net/commands/" target="_blank" class="btn-plugin">Инфо</a>
-            </div>
-
-            <!-- 5. PatPat -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>PatPat</h3>
-                    <p>Милое дополнение: при нажатии <code>Shift + ПКМ</code> на игрока вы сможете его погладить. (Рекомендуем добавить мод в сборку!)</p>
-                </div>
-                <a href="https://modrinth.com/plugin/patpat" target="_blank" class="btn-plugin">Скачать</a>
-            </div>
-
-            <!-- 6. LightMaker -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>LightMaker</h3>
-                    <p>Кастомный крафт блока света: <b>Редстоун факел + Пустая бутылочка</b>. Уровни света 0-15 меняются на камнерезе.</p>
-                </div>
-                <a href="https://modrinth.com/plugin/lightmaker/gallery" target="_blank" class="btn-plugin">Галерея</a>
-            </div>
-
-            <!-- 7. InvisibleFrames -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>InvisibleFrames</h3>
-                    <p>Идеально для декора. Нажмите <code>Shift + ПКМ</code> на рамку, чтобы сделать её невидимой.</p>
-                </div>
-                <a href="https://modrinth.com/resourcepack/invisible-item-frames" target="_blank" class="btn-plugin">Скачать</a>
-            </div>
-
-            <!-- 8. SkinRestorer -->
-            <div class="plugin-card">
-                <div class="p-info">
-                    <h3>SkinRestorer</h3>
-                    <p>Смена скина прямо в игре. <code>/skin [Ник]</code> — установить, <code>/skin clear</code> — убрать скин.</p>
-                </div>
-                <a href="https://skinsrestorer.net/docs" target="_blank" class="btn-plugin">Документация</a>
-            </div>
-
+        <!-- Твои 8 плагинов -->
+        <div class="plugin-card">
+            <div class="p-info"><h3>Plasmo Voice Chat</h3><p>Голосовой чат для общения в игре.</p></div>
+            <a href="https://plasmovoice.com/" target="_blank" class="btn-plugin">Скачать</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>Enchantment List</h3><p>50+ уникальных зачарований.</p></div>
+            <a href="https://nightexpressdev.com/excellentenchants/enchantments/list/" target="_blank" class="btn-plugin">Список</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>GSit</h3><p>Команды: <code>/sit</code>, <code>/lay</code>, <code>/crawl</code>, <code>/spin</code>.</p></div>
+            <a href="https://modrinth.com/plugin/gsit" target="_blank" class="btn-plugin">Скачать</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>CoreProtect</h3><p>Защита от гриферства. Команда <code>/co i</code>.</p></div>
+            <a href="https://docs.coreprotect.net/commands/" target="_blank" class="btn-plugin">Инфо</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>PatPat</h3><p>Погладить игрока: <code>Shift + ПКМ</code>.</p></div>
+            <a href="https://modrinth.com/plugin/patpat" target="_blank" class="btn-plugin">Скачать</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>LightMaker</h3><p>Блок света: Редстоун факел + Бутылочка.</p></div>
+            <a href="https://modrinth.com/plugin/lightmaker/gallery" target="_blank" class="btn-plugin">Галерея</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>InvisibleFrames</h3><p>Невидимые рамки через <code>Shift + ПКМ</code>.</p></div>
+            <a href="https://modrinth.com/resourcepack/invisible-item-frames" target="_blank" class="btn-plugin">Скачать</a>
+        </div>
+        <div class="plugin-card">
+            <div class="p-info"><h3>SkinRestorer</h3><p>Смена скина: <code>/skin [Ник]</code>.</p></div>
+            <a href="https://skinsrestorer.net/docs" target="_blank" class="btn-plugin">Инфо</a>
         </div>
     </div>
 
-    <!-- ПРАВИЛА -->
-    <div class="section-header" id="protocol" data-aos="fade-right">ПРАВИЛА</div>
+    <!-- РАСШИРЕННЫЕ ПРАВИЛА -->
+    <div class="section-header" id="protocol" data-aos="fade-right">РАСШИРЕННЫЙ ПРОТОКОЛ</div>
     <div class="rules-ui" data-aos="fade-up">
         <div class="rules-sidebar">
             <div class="r-item active" onclick="load('osn', this)">ОСНОВНЫЕ</div>
             <div class="r-item" onclick="load('game', this)">ИГРА</div>
-            <div class="r-item" onclick="load('chat', this)">ОБЩЕНИЕ</div>
+            <div class="r-item" onclick="load('chat', this)">ПОВЕДЕНИЕ</div>
+            <div class="r-item" onclick="load('terr', this)">ТЕРРИТОРИИ</div>
+            <div class="r-item" onclick="load('acc', this)">МЕРЫ И МОДЫ</div>
         </div>
         <div class="rules-body" id="rules-target"></div>
     </div>
@@ -229,9 +176,35 @@
     AOS.init({ duration: 1000, once: true });
 
     const RULES = {
-        osn: { h: "Основные правила", b: ["Доступ с 15 лет.", "Играя, вы принимаете все условия сервера."] },
-        game: { h: "Игровой процесс", b: ["PvP разрешено по обоюдному согласию.", "Гриферство строго запрещено."] },
-        chat: { h: "Общение", b: ["Будьте вежливы.", "Кодовое слово для заявки: фембой"] }
+        osn: { h: "Основные положения", b: [
+            { i: "1.0", t: "Доступ на сервер разрешен игрокам с <b>15 лет</b>." },
+            { i: "1.1", t: "Заходя на сервер, вы автоматически соглашаетесь с данными правилами." },
+            { i: "1.2", t: "Незнание правил не освобождает от ответственности." },
+            { i: "1.3", t: "Администрация имеет право изменять правила без уведомления." },
+            { i: "1.4", t: "Администрация стремится к справедливости и объективности." }
+        ]},
+        game: { h: "Игровой процесс", b: [
+            { i: "2.1", t: "PvP разрешено по согласию обеих сторон." },
+            { i: "2.2", t: "Кража ресурсов карается штрафом в 10-15 алмазных руд." },
+            { i: "2.3", t: "Гриферство (порча построек) запрещено. Наказание — тюрьма или бан." },
+            { i: "2.4", t: "Запрещено мешать игровому процессу других участников." }
+        ]},
+        chat: { h: "Общение и Чат", b: [
+            { i: "3.1", t: "Запрещен спам и флуд в глобальном чате." },
+            { i: "3.2", t: "Оскорбление администрации ведет к моментальному бану." },
+            { i: "3.3", t: "Запрещена реклама сторонних ресурсов." },
+            { i: "3.5", t: "Кодовое слово для заявки: <b>фембой</b>." }
+        ]},
+        terr: { h: "Территории и Города", b: [
+            { i: "4.1", t: "Лимит территории одного города — 500 блоков." },
+            { i: "4.2", t: "Запрещено строить фермы, нагружающие сервер." },
+            { i: "4.3", t: "Минимальное расстояние между базами — 100 блоков." }
+        ]},
+        acc: { h: "Меры и Модификации", b: [
+            { i: "5.1", t: "Использование читов (X-Ray, KillAura и др.) — вечный бан." },
+            { i: "5.2", t: "Запрещено использование багов игры для получения выгоды." },
+            { i: "5.3", t: "Разрешены графические моды (шейдеры, миникарты без игроков)." }
+        ]}
     };
 
     function load(k, el) {
@@ -239,7 +212,7 @@
         el.classList.add('active');
         const g = RULES[k];
         let h = `<h2>${g.h}</h2>`;
-        g.b.forEach(r => h += `<div class="rule-block">${r}</div>`);
+        g.b.forEach(r => h += `<div class="rule-block"><i>${r.i}</i>${r.t}</div>`);
         document.getElementById('rules-target').innerHTML = h;
     }
     load('osn', document.querySelector('.r-item'));
