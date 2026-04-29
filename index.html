@@ -17,7 +17,6 @@
             --border: rgba(255, 255, 255, 0.06);
             --font-head: 'Unbounded', sans-serif;
             --font-main: 'Syne', sans-serif;
-            --accent: #ffffff;
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
@@ -44,7 +43,7 @@
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; color: #fff; text-decoration: none; }
         .nav-links a { text-decoration: none; color: #666; font-size: 0.7rem; font-weight: 800; margin-left: 25px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .nav-links a:hover { color: #accent; }
+        .nav-links a:hover { color: #fff; }
 
         /* --- HERO --- */
         .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -56,7 +55,6 @@
         .ip-val { padding: 0 35px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
         .ip-copy { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; font-weight: 900; font-size: 0.7rem; }
 
-        /* --- SOCIAL LINKS --- */
         .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; width: 100%; max-width: 600px; }
         .l-box { background: var(--glass); border: 1px solid var(--border); padding: 20px; border-radius: 18px; text-decoration: none; color: #fff; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 0.8rem; font-weight: 700; backdrop-filter: blur(5px); }
         .l-box:hover { background: #fff; color: #000; }
@@ -65,31 +63,80 @@
         .section-header { margin: 100px 0 40px; font-family: var(--font-head); font-size: 1.8rem; letter-spacing: -1px; display: flex; align-items: center; gap: 20px; }
         .section-header::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
 
-        /* --- PLUGINS GRID --- */
-        .plugins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-        .plugin-card { 
-            background: var(--glass); border: 1px solid var(--border); border-radius: 25px; padding: 30px; 
-            transition: 0.4s; backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: space-between;
+        /* --- УЛУЧШЕННЫЙ БЛОК ПЛАГИНОВ --- */
+        .plugins-container {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
         }
-        .plugin-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
-        .plugin-info h3 { margin: 0 0 10px; font-family: var(--font-head); font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 12px; }
-        .plugin-info h3 i { font-size: 0.9rem; color: #555; }
-        .plugin-info p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; margin-bottom: 25px; }
-        .btn-download { 
-            align-self: flex-start; text-decoration: none; color: #000; background: #fff; 
-            padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; 
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-        }
-        .btn-download:hover { opacity: 0.8; transform: scale(0.95); }
 
-        /* --- NEWS --- */
+        .plugins-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .plugin-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 30px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .plugin-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #fff;
+            transform: translateY(-10px);
+        }
+
+        .plugin-card h3 {
+            margin: 0 0 15px 0;
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plugin-card h3 i { color: #555; font-size: 0.9rem; }
+
+        .plugin-card p {
+            color: #777;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-plugin {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            background: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-plugin:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+
+        /* --- NEWS & RULES (БЕЗ ИЗМЕНЕНИЙ) --- */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .news-card { background: var(--glass); border: 1px solid var(--border); border-radius: 25px; padding: 35px; backdrop-filter: blur(5px); }
         .news-card span { font-family: 'JetBrains Mono'; color: #444; font-size: 0.7rem; display: block; margin-bottom: 10px; }
         .news-card h3 { margin: 0 0 10px; font-family: var(--font-head); font-size: 1rem; }
         .news-card p { margin: 0; color: #777; font-size: 0.85rem; line-height: 1.6; }
 
-        /* --- RULES --- */
         .rules-ui { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; display: grid; grid-template-columns: 300px 1fr; min-height: 850px; overflow: hidden; margin-bottom: 100px; backdrop-filter: blur(10px); }
         .rules-sidebar { border-right: 1px solid var(--border); padding: 30px; background: rgba(0,0,0,0.3); }
         .r-item { padding: 18px; border-radius: 12px; cursor: pointer; color: #444; font-weight: 800; transition: 0.3s; margin-bottom: 8px; font-size: 0.75rem; font-family: var(--font-head); }
@@ -100,11 +147,7 @@
 
         footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.2; font-size: 0.6rem; letter-spacing: 4px; }
 
-        @media (max-width: 900px) { 
-            .rules-ui { grid-template-columns: 1fr; } 
-            .rules-sidebar { display: flex; overflow-x: auto; padding: 15px; } 
-            .social-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 900px) { .rules-ui { grid-template-columns: 1fr; } .rules-sidebar { display: flex; overflow-x: auto; padding: 15px; } .social-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -116,9 +159,9 @@
     <div class="container nav-flex">
         <a href="#" class="logo">VOID+</a>
         <div class="nav-links">
-            <a href="#updates">Updates</a>
-            <a href="#plugins">Plugins</a>
-            <a href="#protocol">Rules</a>
+            <a href="#updates">Новости</a>
+            <a href="#plugins">Плагины</a>
+            <a href="#protocol">Правила</a>
         </div>
     </div>
 </nav>
@@ -139,38 +182,42 @@
         </div>
     </section>
 
-    <!-- UPDATES -->
-    <div class="section-header" id="updates" data-aos="fade-right">UPDATES</div>
+    <!-- НОВОСТИ -->
+    <div class="section-header" id="updates" data-aos="fade-right">НОВОСТИ</div>
     <div class="news-grid">
         <div class="news-card" data-aos="fade-up">
             <span>29.04.2026</span>
-            <h3>Возвращение к Plasmo Voice</h3>
-            <p>Мы официально подтверждаем переход на <b>Plasmo Voice</b>. Вас ждет стабильное общение, 50+ новых зачарований в данжах и моментальное открытие Ада.</p>
+            <h3>Переход на Plasmo Voice</h3>
+            <p>Мы официально подтверждаем возвращение <b>Plasmo Voice</b>. Ожидайте стабильную связь и новые функции уже на открытии.</p>
         </div>
         <div class="news-card" data-aos="fade-up" data-aos-delay="100">
             <span>24.04.2026</span>
-            <h3>План открытия</h3>
-            <p>Открытие запланировано на следующую неделю (ближе к выходным). Энд пока останется закрыт — это наша маленькая тайна.</p>
+            <h3>Дата открытия</h3>
+            <p>Открытие следующего сезона запланировано на конец следующей недели. Готовьтесь к новым испытаниям в Пустоте.</p>
         </div>
     </div>
 
-    <!-- PLUGINS SECTION -->
-    <div class="section-header" id="plugins" data-aos="fade-right">PLUGINS</div>
-    <div class="plugins-grid">
-        <!-- PLUGIN 1: Plasmo Voice -->
-        <div class="plugin-card" data-aos="fade-up">
-            <div class="plugin-info">
-                <h3><i class="fas fa-microphone"></i> Plasmo Voice Chat</h3>
-                <p>Стандартный и прекрасный Войс Чат для общения в игре с другими игроками. Хороший функционал и приятный оверлей для максимального погружения.</p>
+    <!-- БЛОК ПЛАГИНОВ -->
+    <div class="section-header" id="plugins" data-aos="fade-right">ПЛАГИНЫ</div>
+    <div class="plugins-container" data-aos="fade-up">
+        <div class="plugins-list">
+            
+            <!-- ПЛАГИН 1: PLASMO VOICE -->
+            <div class="plugin-card">
+                <div class="p-top">
+                    <h3><i class="fas fa-microphone-lines"></i> Plasmo Voice Chat</h3>
+                    <p>Стандартный и прекрасный Войс Чат для общения в игре с другими Игроками, хороший функционал и приятный оверлей.</p>
+                </div>
+                <a href="https://plasmovoice.com/" target="_blank" class="btn-plugin">Скачать плагин</a>
             </div>
-            <a href="https://plasmovoice.com/" target="_blank" class="btn-download">Скачать Плагин</a>
+
+            <!-- СЮДА ДОБАВИМ СЛЕДУЮЩИЕ ПЛАГИНЫ -->
+
         </div>
-        
-        <!-- Сюда будем добавлять новые плагины -->
     </div>
 
-    <!-- RULES -->
-    <div class="section-header" id="protocol" data-aos="fade-right">PROTOCOL</div>
+    <!-- ПРАВИЛА -->
+    <div class="section-header" id="protocol" data-aos="fade-right">ПРАВИЛА</div>
     <div class="rules-ui" data-aos="fade-up">
         <div class="rules-sidebar">
             <div class="r-item active" onclick="load('osn', this)">ОСНОВНЫЕ</div>
@@ -190,10 +237,10 @@
     AOS.init({ duration: 1000, once: true });
 
     const RULES = {
-        osn: { h: "Основные правила", b: [{ i: "1.0", t: "Доступ с <b>15 лет</b>" }, { i: "1.1", t: "Играя, вы принимаете правила." }] },
-        game: { h: "Игровой процесс", b: [{ i: "2.1", t: "PvP разрешено, но без токсичности." }, { i: "2.3", t: "Гриферство запрещено." }] },
-        chat: { h: "Чат и общение", b: [{ i: "3.5", t: "Кодовое слово: <b>фембой</b>" }] },
-        terr: { h: "Территории", b: [{ i: "4.1", t: "Лимит города: 500 блоков." }, { i: "4.3", t: "Радиус застройки: 100 блоков от соседа." }] },
+        osn: { h: "Основные правила", b: [{ i: "1.0", t: "Доступ с <b>15 лет</b>" }, { i: "1.1", t: "Играя, вы принимаете правила." }, { i: "1.4", t: "Администрация действует справедливо." }] },
+        game: { h: "Игровой процесс", b: [{ i: "2.1", t: "PvP разрешено." }, { i: "2.3", t: "Гриферство запрещено (10-15 ар штраф)." }] },
+        chat: { h: "Общение", b: [{ i: "3.5", t: "Кодовое слово: <b>фембой</b>" }] },
+        terr: { h: "Территории", b: [{ i: "4.1", t: "Лимит города: 500 блоков." }] },
         acc: { h: "Моды", b: [{ i: "MODS", t: "Запрещены читы: X-Ray, Baritone и др." }] }
     };
 
@@ -208,11 +255,11 @@
     load('osn', document.querySelector('.r-item'));
 
     function copyIP() {
-        const ipText = document.getElementById('ip-text');
-        if(ipText.innerText !== "Coming soon...") {
-            navigator.clipboard.writeText(ipText.innerText);
-            ipText.innerText = "COPIED!";
-            setTimeout(() => { ipText.innerText = "Coming soon..."; }, 2000);
+        const t = document.getElementById('ip-text');
+        if(t.innerText !== "Coming soon...") {
+            navigator.clipboard.writeText(t.innerText);
+            t.innerText = "COPIED!";
+            setTimeout(() => { t.innerText = "Coming soon..."; }, 2000);
         }
     }
 
